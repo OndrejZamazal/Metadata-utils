@@ -1,0 +1,83 @@
+notation,id,parent_id,prefLabel_en,prefLabel_cs,definition_en,definition_cs
+1,artificial,,Artificial surfaces,Umělé povrchy,Built-up areas and infrastructure.,Zastavěné plochy a infrastruktura.
+11,urban_fabric,artificial,Urban fabric,Městská zástavba,Urban residential areas.,Obytné městské oblasti.
+111,continuous_urban_fabric,urban_fabric,Continuous urban fabric,Souvislá městská zástavba,Dense continuous buildings.,Hustá souvislá zástavba.
+112,discontinuous_urban_fabric,urban_fabric,Discontinuous urban fabric,Nesouvislá městská zástavba,Buildings mixed with vegetation.,Zástavba s vegetací.
+
+12,industrial_transport,artificial,Industrial and transport units,Průmyslové a dopravní plochy,Industrial and transport infrastructure.,Průmysl a doprava.
+121,industrial_units,industrial_transport,Industrial or commercial units,Průmyslové nebo komerční areály,Industrial or commercial activity.,Průmyslové a obchodní areály.
+122,transport_networks,industrial_transport,Road and rail networks,Dopravní sítě,Transport infrastructure.,Silnice a železnice.
+123,ports,industrial_transport,Port areas,Přístavní oblasti,Maritime transport areas.,Přístavy.
+124,airports,industrial_transport,Airports,Letiště,Air transport areas.,Letiště.
+
+13,extractive,artificial,Mine and dump sites,Těžební a odpadní plochy,Extraction and waste areas.,Těžba a odpady.
+131,mineral_extraction,extractive,Mineral extraction sites,Těžební lokality,Mining activity.,Těžba nerostů.
+132,dump_sites,extractive,Dump sites,Skládky,Waste disposal.,Skládky odpadů.
+133,construction_sites,extractive,Construction sites,Staveniště,Construction areas.,Staveniště.
+
+14,urban_green,artificial,Artificial non-agricultural vegetated areas,Umělé zelené plochy,Urban green spaces.,Městská zeleň.
+141,green_urban,urban_green,Green urban areas,Městská zeleň,Parks and gardens.,Parky a zeleň.
+142,sport_leisure,urban_green,Sport and leisure facilities,Sportovní a rekreační areály,Recreation facilities.,Rekreační areály.
+
+2,agricultural,,Agricultural areas,Zemědělské plochy,Land used for agriculture.,Zemědělská půda.
+21,arable_land,agricultural,Arable land,Orná půda,Crop production.,Pěstování plodin.
+211,non_irrigated_arable,arable_land,Non-irrigated arable land,Suchá orná půda,No irrigation.,Bez závlahy.
+212,irrigated_arable,arable_land,Permanently irrigated land,Zavlažovaná orná půda,With irrigation.,Se závlahou.
+213,rice_fields,arable_land,Rice fields,Rýžová pole,Flooded fields.,Zaplavená pole.
+
+22,permanent_crops,agricultural,Permanent crops,Trvalé kultury,Long-term crops.,Trvalé kultury.
+221,vineyards,permanent_crops,Vineyards,Vinice,Grapes.,Vinná réva.
+222,fruit,permanent_crops,Fruit trees and berry plantations,Ovocné sady,Ovocné stromy.,Ovocná produkce.
+223,olive,permanent_crops,Olive groves,Olivové háje,Olives.,Olivy.
+
+23,pastures,agricultural,Pastures,Pastviny,Grazing land.,Pastva.
+231,pastures_detail,pastures,Pastures,Pastviny,Grazing areas.,Pastviny.
+
+24,heterogeneous,agricultural,Heterogeneous agricultural areas,Mosaikovitá krajina,Mixed agriculture.,Smíšené zemědělství.
+241,annual_perm_mix,heterogeneous,Annual crops with permanent crops,Smíšené plodiny,Mixed cropping.,Smíšené plodiny.
+242,complex_patterns,heterogeneous,Complex cultivation patterns,Kombinované obdělávání,Mixed patterns.,Různorodé zemědělství.
+243,agri_natural,heterogeneous,Agriculture with natural vegetation,Zemědělství s vegetací,Mixed with nature.,Kombinace přírody a polí.
+244,agroforestry,heterogeneous,Agro-forestry areas,Agrolesnictví,Agroforestry.,Agrolesnické systémy.
+
+3,forest,,Forest and semi-natural areas,Lesy a přírodní plochy,Natural vegetation.,Přírodní vegetace.
+31,forests,forest,Forests,Lesy,Tree cover.,Lesy.
+311,broadleaf,forests,Broad-leaved forest,Listnaté lesy,Deciduous trees.,Listnaté stromy.
+312,coniferous,forests,Coniferous forest,Jehlíčnaté lesy,Conifers.,Jehličnany.
+313,mixed,forests,Mixed forest,Smíšené lesy,Mixed trees.,Smíšené porosty.
+
+32,scrub,forest,Scrub and herbaceous vegetation,Křoviny a traviny,Shrub and grass.,Křoviny.
+321,natural_grasslands,scrub,Natural grasslands,Přirozené travní porosty,Natural grass.,Traviny.
+322,moors,scrub,Moors and heathland,Vřesoviště,Heath areas.,Vřesoviště.
+323,sclerophyllous,scrub,Sclerophyllous vegetation,Středomořská vegetace,Hard-leaved vegetation.,Tvrdolistá vegetace.
+324,transitional,scrub,Transitional woodland-shrub,Přechodné lesy,Přechod mezi lesem a křovinami.,Přechodné porosty.
+
+33,open_spaces,forest,Open spaces with little vegetation,Otevřená krajina,Little vegetation.,Málo vegetace.
+331,beaches,open_spaces,Beaches dunes sands,Pláže a duny,Sandy areas.,Písečné oblasti.
+332,rocks,open_spaces,Bare rocks,Holé skály,Rock surfaces.,Skály.
+333,sparse,open_spaces,Sparsely vegetated areas,Řídce zarostlé plochy,Sparse vegetation.,Řídká vegetace.
+334,burnt,open_spaces,Burnt areas,Spálené plochy,Fire-damaged.,Spáleniště.
+335,glaciers,open_spaces,Glaciers and snow,Ledovce,Snow and ice.,Led a sníh.
+
+4,wetlands,,Wetlands,Mokřady,Wet environments.,Mokřady.
+41,inland_wetlands,wetlands,Inland wetlands,Vnitrozemské mokřady,Freshwater wetlands.,Sladkovodní mokřady.
+411,marshes,inland_wetlands,Inland marshes,Vnitrozemské bažiny,Wetlands.,Bažiny.
+412,peatbogs,inland_wetlands,Peat bogs,Rašeliniště,Peat areas.,Rašeliniště.
+
+42,coastal_wetlands,wetlands,Coastal wetlands,Pobřežní mokřady,Coastal wet areas.,Pobřežní mokřady.
+421,salt_marshes,coastal_wetlands,Salt marshes,Slané bažiny,Saline wetlands.,Slané mokřady.
+422,salines,coastal_wetlands,Salines,Solné pánve,Salt extraction.,Solné oblasti.
+423,intertidal,coastal_wetlands,Intertidal flats,Přílivové plochy,Tidal zones.,Přílivová území.
+
+5,water,,Water bodies,Vodní plochy,Water surfaces.,Vodní plochy.
+51,inland_water,water,Inland waters,Vnitrozemské vody,Freshwater.,Sladká voda.
+511,watercourses,inland_water,Water courses,Vodní toky,Rivers.,Řeky.
+512,waterbodies,inland_water,Water bodies,Vodní nádrže,Jezera.,Jezera.
+
+52,marine,water,Marine waters,Mořské vody,Sea areas.,Moře.
+521,lagoons,marine,Coastal lagoons,Pobřežní laguny,Lagoons.,Laguny.
+522,estuaries,marine,Estuaries,Ústí řek,Estuaries.,Estuária.
+523,sea,marine,Sea and ocean,Moře a oceán,Sea.,Moře.
+
+990,unclassified_land,,Unclassified land,Nezařazená pevnina,Unclassified.,Nezařazeno.
+995,unclassified_water,,Unclassified water,Nezařazená voda,Unclassified.,Nezařazeno.
+999,nodata,,No data,Bez dat,No data.,Chybí data.
