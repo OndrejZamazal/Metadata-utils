@@ -1,0 +1,69 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vocab: <https://vocabs.ccmm.cz/registry/collection/GENASIS/> .
+
+vocab:project-type a skos:Collection ;
+    skos:member <https://vocabs.ccmm.cz/registry/collection/GENASIS/project-type/ad-hoc-measurement>,
+        <https://vocabs.ccmm.cz/registry/collection/GENASIS/project-type/long-term-monitoring>,
+        <https://vocabs.ccmm.cz/registry/collection/GENASIS/project-type/screening>,
+        <https://vocabs.ccmm.cz/registry/collection/GENASIS/project-type/short-term-monitoring> ;
+    skos:prefLabel "project type"@en .
+
+vocab:sampling-method a skos:Collection ;
+    skos:member <https://vocabs.ccmm.cz/registry/collection/GENASIS/sampling-method/spade>,
+        <https://vocabs.ccmm.cz/registry/collection/GENASIS/sampling-method/stratified> ;
+    skos:prefLabel "sampling method"@en .
+
+vocab:site-type a skos:Collection ;
+    skos:member <https://vocabs.ccmm.cz/registry/collection/GENASIS/site-type/background>,
+        <https://vocabs.ccmm.cz/registry/collection/GENASIS/site-type/impacted> ;
+    skos:prefLabel "site type"@en .
+
+<https://vocabs.ccmm.cz/registry/collection/GENASIS/project-type/ad-hoc-measurement> a skos:Concept ;
+    skos:definition "Jednorázové měření prováděné podle potřeby bez předem stanoveného pravidelného plánu."@cs,
+        "One-off measurement performed as needed without a predefined regular schedule."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Ad hoc měření"@cs,
+        "Ad hoc measurement"@en .
+
+<https://vocabs.ccmm.cz/registry/collection/GENASIS/project-type/long-term-monitoring> a skos:Concept ;
+    skos:definition "Systematické a opakované sledování nebo měření prováděné po dlouhou dobu za účelem sledování trendů a změn."@cs,
+        "Systematic and repeated observation or measurement conducted over extended periods to detect trends and changes."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Dlouhodobý monitoring"@cs,
+        "Long term monitoring"@en .
+
+<https://vocabs.ccmm.cz/registry/collection/GENASIS/project-type/screening> a skos:Concept ;
+    skos:definition "Předběžné nebo orientační měření prováděné za účelem zjištění přítomnosti či nepřítomnosti látky nebo jevu."@cs,
+        "Preliminary or exploratory measurement carried out to detect the presence or absence of a substance or condition."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Screening"@cs,
+        "Screening"@en .
+
+<https://vocabs.ccmm.cz/registry/collection/GENASIS/project-type/short-term-monitoring> a skos:Concept ;
+    skos:definition "Sledování nebo měření prováděné po omezenou dobu za účelem posouzení krátkodobého stavu nebo variability."@cs,
+        "Observation or measurement conducted over a limited period to assess short-term conditions or variability."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Krátkodobý monitoring"@cs,
+        "Short term monitoring"@en .
+
+<https://vocabs.ccmm.cz/registry/collection/GENASIS/sampling-method/spade> a skos:Concept ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Spade"@en .
+
+<https://vocabs.ccmm.cz/registry/collection/GENASIS/sampling-method/stratified> a skos:Concept ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Stratified"@en .
+
+<https://vocabs.ccmm.cz/registry/collection/GENASIS/site-type/background> a skos:Concept ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "background"@en .
+
+<https://vocabs.ccmm.cz/registry/collection/GENASIS/site-type/impacted> a skos:Concept ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "impacted"@en .
+
+vocab: a skos:ConceptScheme ;
+    dct:title "Řízené slovníky GENASIS"@cs,
+        "GENASIS Controlled Vocabularies"@en .
+
