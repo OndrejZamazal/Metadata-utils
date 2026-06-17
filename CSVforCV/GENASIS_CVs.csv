@@ -1,14 +1,14 @@
-Collection:project type
+# Collection:project type
 prefLabel_en,prefLabel_cs,definition_en,definition_cs
 Long term monitoring,Dlouhodobý monitoring,Systematic and repeated observation or measurement conducted over extended periods to detect trends and changes.,Systematické a opakované sledování nebo měření prováděné po dlouhou dobu za účelem sledování trendů a změn.
 Short term monitoring,Krátkodobý monitoring,Observation or measurement conducted over a limited period to assess short-term conditions or variability.,Sledování nebo měření prováděné po omezenou dobu za účelem posouzení krátkodobého stavu nebo variability.
 Screening,Screening,Preliminary or exploratory measurement carried out to detect the presence or absence of a substance or condition.,Předběžné nebo orientační měření prováděné za účelem zjištění přítomnosti či nepřítomnosti látky nebo jevu.
 Ad hoc measurement,Ad hoc měření,One-off measurement performed as needed without a predefined regular schedule.,Jednorázové měření prováděné podle potřeby bez předem stanoveného pravidelného plánu.
-Collection:sampling method
+# Collection:sampling method
 prefLabel_en,prefLabel_cs,definition_en,definition_cs
 Spade, , ,
 Stratified, , ,
-Collection:site type
+# Collection:site type
 prefLabel_en,prefLabel_cs,definition_en,definition_cs
 background, , ,
 impacted, ,,
