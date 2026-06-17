@@ -1,0 +1,264 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vocab: <https://vocabs.ccmm.cz/registry/codelist/WRB/> .
+
+vocab:acrisols a skos:Concept ;
+    skos:definition "Kyselé půdy s jílovitým obohaceným podpovrchovým horizontem a nízkou bázovou saturací."@cs,
+        "Acid soils with a clay-enriched subsurface horizon and low base saturation."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Akrizemě"@cs,
+        "Acrisols"@en .
+
+vocab:albeluvisols a skos:Concept ;
+    skos:definition "Půdy s albickým horizontem pronikajícím do argického horizontu."@cs,
+        "Soils with an albic horizon tonguing into an argic horizon."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Albeluvizemě"@cs,
+        "Albeluvisols"@en .
+
+vocab:alisols a skos:Concept ;
+    skos:definition "Kyselé půdy s vysoce aktivními jíly a jílovitým podpovrchovým horizontem."@cs,
+        "Acid soils with high-activity clays and a clay-enriched subsurface horizon."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Alizemě"@cs,
+        "Alisols"@en .
+
+vocab:andosols a skos:Concept ;
+    skos:definition "Půdy vzniklé z vulkanických materiálů se specifickou mineralogií."@cs,
+        "Soils formed from volcanic materials with unique mineralogy."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Andosoly"@cs,
+        "Andosols"@en .
+
+vocab:anthrosols a skos:Concept ;
+    skos:definition "Půdy výrazně ovlivněné dlouhodobou lidskou činností."@cs,
+        "Soils strongly influenced or modified by long-term human activity."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Antrozemě"@cs,
+        "Anthrosols"@en .
+
+vocab:arenosols a skos:Concept ;
+    skos:definition "Písčité půdy s velmi slabým vývojem horizontů."@cs,
+        "Sandy soils with very weak horizon development."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Arenosoly"@cs,
+        "Arenosols"@en .
+
+vocab:calcisols a skos:Concept ;
+    skos:definition "Půdy s výraznou akumulací sekundárního uhličitanu vápenatého."@cs,
+        "Soils with substantial accumulation of secondary calcium carbonate."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Kalcizemy"@cs,
+        "Calcisols"@en .
+
+vocab:cambisols a skos:Concept ;
+    skos:definition "Mladé půdy s počátečním vývojem horizontů."@cs,
+        "Young soils with initial horizon development."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Kambizemě"@cs,
+        "Cambisols"@en .
+
+vocab:chernozems a skos:Concept ;
+    skos:definition "Půdy s mocným tmavým humusovým horizontem."@cs,
+        "Soils with thick, dark, organic-rich surface horizons."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Černozemě"@cs,
+        "Chernozems"@en .
+
+vocab:cryosols a skos:Concept ;
+    skos:definition "Chladné půdy s permafrostem do hloubky dvou metrů."@cs,
+        "Cold soils with permafrost within two meters of the surface."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Kryosoly"@cs,
+        "Cryosols"@en .
+
+vocab:durisols a skos:Concept ;
+    skos:definition "Půdy s akumulací křemičitých sloučenin tvořících tvrdé horizonty."@cs,
+        "Soils with accumulations of silica forming hard layers."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Durisoly"@cs,
+        "Durisols"@en .
+
+vocab:ferralsols a skos:Concept ;
+    skos:definition "Silně zvětralé půdy chudé na živiny s vysokým obsahem oxidů železa a hliníku."@cs,
+        "Highly weathered soils with low nutrient reserves and rich in iron and aluminum oxides."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Feralzemy"@cs,
+        "Ferralsols"@en .
+
+vocab:fluvisols a skos:Concept ;
+    skos:definition "Mladé půdy vyvinuté z recentních fluviálních sedimentů."@cs,
+        "Young soils developed from recent alluvial deposits."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Fluvizemě"@cs,
+        "Fluvisols"@en .
+
+vocab:gleysols a skos:Concept ;
+    skos:definition "Zamokřené půdy s redukčními podmínkami."@cs,
+        "Waterlogged soils with reducing conditions."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Glejzemě"@cs,
+        "Gleysols"@en .
+
+vocab:gypsisols a skos:Concept ;
+    skos:definition "Půdy s významnou akumulací sádrovce."@cs,
+        "Soils with significant accumulation of gypsum."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Gypsizemě"@cs,
+        "Gypsisols"@en .
+
+vocab:histosols a skos:Concept ;
+    skos:definition "Organické půdy s vysokým obsahem organické hmoty."@cs,
+        "Organic soils rich in organic matter."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Histosoly"@cs,
+        "Histosols"@en .
+
+vocab:kastanozems a skos:Concept ;
+    skos:definition "Půdy s hnědavým povrchovým horizontem v suchých stepních oblastech."@cs,
+        "Soils with brown surface horizons in dry grassland regions."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Kaštanozemě"@cs,
+        "Kastanozems"@en .
+
+vocab:leptosols a skos:Concept ;
+    skos:definition "Mělké půdy nad pevným podložím nebo karbonátovými materiály."@cs,
+        "Shallow soils over hard rock or highly calcareous material."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Leptosoly"@cs,
+        "Leptosols"@en .
+
+vocab:lixisols a skos:Concept ;
+    skos:definition "Půdy s jílovým obohacením a nízkoaktivními jíly v teplém klimatu."@cs,
+        "Soils with clay accumulation and low-activity clays in warm climates."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Lixizemě"@cs,
+        "Lixisols"@en .
+
+vocab:luvisols a skos:Concept ;
+    skos:definition "Půdy s jílovitým podpovrchovým horizontem a vysokou bázovou saturací."@cs,
+        "Soils with a clay-enriched subsurface horizon and high base saturation."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Luvizemě"@cs,
+        "Luvisols"@en .
+
+vocab:nitisols a skos:Concept ;
+    skos:definition "Hluboké, dobře strukturované půdy bohaté na železo se stabilní strukturou."@cs,
+        "Deep, well-structured soils rich in iron with stable aggregates."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Nitizemy"@cs,
+        "Nitisols"@en .
+
+vocab:phaeozems a skos:Concept ;
+    skos:definition "Půdy s tmavým povrchovým horizontem a vyšší vlhkostí než černozemě."@cs,
+        "Soils with dark surface horizons and higher moisture than Chernozems."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Faeozemě"@cs,
+        "Phaeozems"@en .
+
+vocab:planosols a skos:Concept ;
+    skos:definition "Půdy s hutným podpovrchovým horizontem způsobujícím zamokření."@cs,
+        "Soils with a dense subsurface layer causing water stagnation."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Planosoly"@cs,
+        "Planosols"@en .
+
+vocab:plinthosols a skos:Concept ;
+    skos:definition "Půdy obsahující plintit, který může nevratně ztvrdnout."@cs,
+        "Soils with plinthite that can harden irreversibly."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Plintosoly"@cs,
+        "Plinthosols"@en .
+
+vocab:podzols a skos:Concept ;
+    skos:definition "Kyselé půdy se silnou eluviací a spodickým horizontem."@cs,
+        "Acid soils with strong leaching and spodic horizon."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Podzoly"@cs,
+        "Podzols"@en .
+
+vocab:regosols a skos:Concept ;
+    skos:definition "Slabě vyvinuté minerální půdy bez výrazného horizontového členění."@cs,
+        "Weakly developed mineral soils without significant horizons."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Regosoly"@cs,
+        "Regosols"@en .
+
+vocab:solonchaks a skos:Concept ;
+    skos:definition "Půdy s vysokým obsahem rozpustných solí."@cs,
+        "Saline soils with high soluble salt content."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Solončaky"@cs,
+        "Solonchaks"@en .
+
+vocab:solonetz a skos:Concept ;
+    skos:definition "Půdy ovlivněné sodíkem s hutnými podpovrchovými horizonty."@cs,
+        "Sodium-affected soils with dense, hard subsurface horizons."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Soloněce"@cs,
+        "Solonetz"@en .
+
+vocab:stagnosols a skos:Concept ;
+    skos:definition "Půdy ovlivněné periodickým zamokřením nad nepropustnou vrstvou."@cs,
+        "Soils affected by temporary water stagnation above a dense layer."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Stagnosoly"@cs,
+        "Stagnosols"@en .
+
+vocab:technosols a skos:Concept ;
+    skos:definition "Půdy obsahující značné množství antropogenních materiálů."@cs,
+        "Soils containing significant amounts of artefacts or technogenic materials."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Technosoly"@cs,
+        "Technosols"@en .
+
+vocab:umbrisols a skos:Concept ;
+    skos:definition "Půdy s tmavým humusovým horizontem ve vlhkém klimatu."@cs,
+        "Soils with dark, organic-rich surface horizons in humid climates."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Umbrizemě"@cs,
+        "Umbrisols"@en .
+
+vocab:vertisols a skos:Concept ;
+    skos:definition "Jílovité půdy s výraznými objemovými změnami při vysychání a zvlhčení."@cs,
+        "Clay-rich soils with strong shrink-swell properties."@en ;
+    skos:inScheme vocab: ;
+    skos:prefLabel "Vertisoly"@cs,
+        "Vertisols"@en .
+
+vocab: a skos:ConceptScheme ;
+    dct:title "Půdní typy WRB"@cs,
+        "WRB Soil Types"@en ;
+    skos:hasTopConcept vocab:acrisols,
+        vocab:albeluvisols,
+        vocab:alisols,
+        vocab:andosols,
+        vocab:anthrosols,
+        vocab:arenosols,
+        vocab:calcisols,
+        vocab:cambisols,
+        vocab:chernozems,
+        vocab:cryosols,
+        vocab:durisols,
+        vocab:ferralsols,
+        vocab:fluvisols,
+        vocab:gleysols,
+        vocab:gypsisols,
+        vocab:histosols,
+        vocab:kastanozems,
+        vocab:leptosols,
+        vocab:lixisols,
+        vocab:luvisols,
+        vocab:nitisols,
+        vocab:phaeozems,
+        vocab:planosols,
+        vocab:plinthosols,
+        vocab:podzols,
+        vocab:regosols,
+        vocab:solonchaks,
+        vocab:solonetz,
+        vocab:stagnosols,
+        vocab:technosols,
+        vocab:umbrisols,
+        vocab:vertisols .
+
