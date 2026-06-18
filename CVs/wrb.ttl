@@ -229,6 +229,7 @@ vocab:vertisols a skos:Concept ;
 vocab: a skos:ConceptScheme ;
     dct:title "Půdní typy WRB"@cs,
         "WRB Soil Types"@en ;
+    dct:source <https://openknowledge.fao.org/server/api/core/bitstreams/bcdecec7-f45f-4dc5-beb1-97022d29fab4/content> ;
     skos:hasTopConcept vocab:acrisols,
         vocab:albeluvisols,
         vocab:alisols,
