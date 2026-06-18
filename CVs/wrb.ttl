@@ -1,6 +1,6 @@
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix vocab: <https://vocabs.ccmm.cz/registry/codelist/WRB/> .
+@prefix vocab: <https://vocabs.repo.cz/vocabularies/WRB/> .
 
 vocab:acrisols a skos:Concept ;
     skos:definition "Kyselé půdy s jílovitým obohaceným podpovrchovým horizontem a nízkou bázovou saturací."@cs,
