@@ -1,6 +1,6 @@
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix vocab: <https://vocabs.ccmm.cz/registry/collection/GENASIS/> .
+@prefix vocab: <https://vocabs.repo.cz/vocabularies/LandUse/> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 vocab:agri_natural a skos:Concept ;
