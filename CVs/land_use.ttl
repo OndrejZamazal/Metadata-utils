@@ -1,0 +1,679 @@
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vocab: <https://vocabs.ccmm.cz/registry/collection/GENASIS/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+vocab:agri_natural a skos:Concept ;
+    skos:broader vocab:heterogeneous ;
+    skos:definition "Kombinace přírody a polí."@cs,
+        "Mixed with nature."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "243"^^xsd:string ;
+    skos:prefLabel "Zemědělství s vegetací"@cs,
+        "Agriculture with natural vegetation"@en .
+
+vocab:agroforestry a skos:Concept ;
+    skos:broader vocab:heterogeneous ;
+    skos:definition "Agrolesnické systémy."@cs,
+        "Agroforestry."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "244"^^xsd:string ;
+    skos:prefLabel "Agrolesnictví"@cs,
+        "Agro-forestry areas"@en .
+
+vocab:airports a skos:Concept ;
+    skos:broader vocab:industrial_transport ;
+    skos:definition "Letiště."@cs,
+        "Air transport areas."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "124"^^xsd:string ;
+    skos:prefLabel "Letiště"@cs,
+        "Airports"@en .
+
+vocab:annual_perm_mix a skos:Concept ;
+    skos:broader vocab:heterogeneous ;
+    skos:definition "Smíšené plodiny."@cs,
+        "Mixed cropping."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "241"^^xsd:string ;
+    skos:prefLabel "Smíšené plodiny"@cs,
+        "Annual crops with permanent crops"@en .
+
+vocab:beaches a skos:Concept ;
+    skos:broader vocab:open_spaces ;
+    skos:definition "Písečné oblasti."@cs,
+        "Sandy areas."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "331"^^xsd:string ;
+    skos:prefLabel "Pláže a duny"@cs,
+        "Beaches dunes sands"@en .
+
+vocab:broadleaf a skos:Concept ;
+    skos:broader vocab:forests ;
+    skos:definition "Listnaté stromy."@cs,
+        "Deciduous trees."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "311"^^xsd:string ;
+    skos:prefLabel "Listnaté lesy"@cs,
+        "Broad-leaved forest"@en .
+
+vocab:burnt a skos:Concept ;
+    skos:broader vocab:open_spaces ;
+    skos:definition "Spáleniště."@cs,
+        "Fire-damaged."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "334"^^xsd:string ;
+    skos:prefLabel "Spálené plochy"@cs,
+        "Burnt areas"@en .
+
+vocab:complex_patterns a skos:Concept ;
+    skos:broader vocab:heterogeneous ;
+    skos:definition "Různorodé zemědělství."@cs,
+        "Mixed patterns."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "242"^^xsd:string ;
+    skos:prefLabel "Kombinované obdělávání"@cs,
+        "Complex cultivation patterns"@en .
+
+vocab:coniferous a skos:Concept ;
+    skos:broader vocab:forests ;
+    skos:definition "Jehličnany."@cs,
+        "Conifers."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "312"^^xsd:string ;
+    skos:prefLabel "Jehlíčnaté lesy"@cs,
+        "Coniferous forest"@en .
+
+vocab:construction_sites a skos:Concept ;
+    skos:broader vocab:extractive ;
+    skos:definition "Staveniště."@cs,
+        "Construction areas."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "133"^^xsd:string ;
+    skos:prefLabel "Staveniště"@cs,
+        "Construction sites"@en .
+
+vocab:continuous_urban_fabric a skos:Concept ;
+    skos:broader vocab:urban_fabric ;
+    skos:definition "Hustá souvislá zástavba."@cs,
+        "Dense continuous buildings."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "111"^^xsd:string ;
+    skos:prefLabel "Souvislá městská zástavba"@cs,
+        "Continuous urban fabric"@en .
+
+vocab:discontinuous_urban_fabric a skos:Concept ;
+    skos:broader vocab:urban_fabric ;
+    skos:definition "Zástavba s vegetací."@cs,
+        "Buildings mixed with vegetation."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "112"^^xsd:string ;
+    skos:prefLabel "Nesouvislá městská zástavba"@cs,
+        "Discontinuous urban fabric"@en .
+
+vocab:dump_sites a skos:Concept ;
+    skos:broader vocab:extractive ;
+    skos:definition "Skládky odpadů."@cs,
+        "Waste disposal."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "132"^^xsd:string ;
+    skos:prefLabel "Skládky"@cs,
+        "Dump sites"@en .
+
+vocab:estuaries a skos:Concept ;
+    skos:broader vocab:marine ;
+    skos:definition "Estuária."@cs,
+        "Estuaries."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "522"^^xsd:string ;
+    skos:prefLabel "Ústí řek"@cs,
+        "Estuaries"@en .
+
+vocab:fruit a skos:Concept ;
+    skos:broader vocab:permanent_crops ;
+    skos:definition "Ovocná produkce."@cs,
+        "Ovocné stromy."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "222"^^xsd:string ;
+    skos:prefLabel "Ovocné sady"@cs,
+        "Fruit trees and berry plantations"@en .
+
+vocab:glaciers a skos:Concept ;
+    skos:broader vocab:open_spaces ;
+    skos:definition "Led a sníh."@cs,
+        "Snow and ice."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "335"^^xsd:string ;
+    skos:prefLabel "Ledovce"@cs,
+        "Glaciers and snow"@en .
+
+vocab:green_urban a skos:Concept ;
+    skos:broader vocab:urban_green ;
+    skos:definition "Parky a zeleň."@cs,
+        "Parks and gardens."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "141"^^xsd:string ;
+    skos:prefLabel "Městská zeleň"@cs,
+        "Green urban areas"@en .
+
+vocab:industrial_units a skos:Concept ;
+    skos:broader vocab:industrial_transport ;
+    skos:definition "Průmyslové a obchodní areály."@cs,
+        "Industrial or commercial activity."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "121"^^xsd:string ;
+    skos:prefLabel "Průmyslové nebo komerční areály"@cs,
+        "Industrial or commercial units"@en .
+
+vocab:intertidal a skos:Concept ;
+    skos:broader vocab:coastal_wetlands ;
+    skos:definition "Přílivová území."@cs,
+        "Tidal zones."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "423"^^xsd:string ;
+    skos:prefLabel "Přílivové plochy"@cs,
+        "Intertidal flats"@en .
+
+vocab:irrigated_arable a skos:Concept ;
+    skos:broader vocab:arable_land ;
+    skos:definition "Se závlahou."@cs,
+        "With irrigation."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "212"^^xsd:string ;
+    skos:prefLabel "Zavlažovaná orná půda"@cs,
+        "Permanently irrigated land"@en .
+
+vocab:lagoons a skos:Concept ;
+    skos:broader vocab:marine ;
+    skos:definition "Laguny."@cs,
+        "Lagoons."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "521"^^xsd:string ;
+    skos:prefLabel "Pobřežní laguny"@cs,
+        "Coastal lagoons"@en .
+
+vocab:marshes a skos:Concept ;
+    skos:broader vocab:inland_wetlands ;
+    skos:definition "Bažiny."@cs,
+        "Wetlands."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "411"^^xsd:string ;
+    skos:prefLabel "Vnitrozemské bažiny"@cs,
+        "Inland marshes"@en .
+
+vocab:mineral_extraction a skos:Concept ;
+    skos:broader vocab:extractive ;
+    skos:definition "Těžba nerostů."@cs,
+        "Mining activity."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "131"^^xsd:string ;
+    skos:prefLabel "Těžební lokality"@cs,
+        "Mineral extraction sites"@en .
+
+vocab:mixed a skos:Concept ;
+    skos:broader vocab:forests ;
+    skos:definition "Smíšené porosty."@cs,
+        "Mixed trees."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "313"^^xsd:string ;
+    skos:prefLabel "Smíšené lesy"@cs,
+        "Mixed forest"@en .
+
+vocab:moors a skos:Concept ;
+    skos:broader vocab:scrub ;
+    skos:definition "Vřesoviště."@cs,
+        "Heath areas."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "322"^^xsd:string ;
+    skos:prefLabel "Vřesoviště"@cs,
+        "Moors and heathland"@en .
+
+vocab:natural_grasslands a skos:Concept ;
+    skos:broader vocab:scrub ;
+    skos:definition "Traviny."@cs,
+        "Natural grass."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "321"^^xsd:string ;
+    skos:prefLabel "Přirozené travní porosty"@cs,
+        "Natural grasslands"@en .
+
+vocab:nodata a skos:Concept ;
+    skos:definition "Chybí data."@cs,
+        "No data."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "999"^^xsd:string ;
+    skos:prefLabel "Bez dat"@cs,
+        "No data"@en ;
+    skos:topConceptOf vocab: .
+
+vocab:non_irrigated_arable a skos:Concept ;
+    skos:broader vocab:arable_land ;
+    skos:definition "Bez závlahy."@cs,
+        "No irrigation."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "211"^^xsd:string ;
+    skos:prefLabel "Suchá orná půda"@cs,
+        "Non-irrigated arable land"@en .
+
+vocab:olive a skos:Concept ;
+    skos:broader vocab:permanent_crops ;
+    skos:definition "Olivy."@cs,
+        "Olives."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "223"^^xsd:string ;
+    skos:prefLabel "Olivové háje"@cs,
+        "Olive groves"@en .
+
+vocab:pastures_detail a skos:Concept ;
+    skos:broader vocab:pastures ;
+    skos:definition "Pastviny."@cs,
+        "Grazing areas."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "231"^^xsd:string ;
+    skos:prefLabel "Pastviny"@cs,
+        "Pastures"@en .
+
+vocab:peatbogs a skos:Concept ;
+    skos:broader vocab:inland_wetlands ;
+    skos:definition "Rašeliniště."@cs,
+        "Peat areas."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "412"^^xsd:string ;
+    skos:prefLabel "Rašeliniště"@cs,
+        "Peat bogs"@en .
+
+vocab:ports a skos:Concept ;
+    skos:broader vocab:industrial_transport ;
+    skos:definition "Přístavy."@cs,
+        "Maritime transport areas."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "123"^^xsd:string ;
+    skos:prefLabel "Přístavní oblasti"@cs,
+        "Port areas"@en .
+
+vocab:rice_fields a skos:Concept ;
+    skos:broader vocab:arable_land ;
+    skos:definition "Zaplavená pole."@cs,
+        "Flooded fields."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "213"^^xsd:string ;
+    skos:prefLabel "Rýžová pole"@cs,
+        "Rice fields"@en .
+
+vocab:rocks a skos:Concept ;
+    skos:broader vocab:open_spaces ;
+    skos:definition "Skály."@cs,
+        "Rock surfaces."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "332"^^xsd:string ;
+    skos:prefLabel "Holé skály"@cs,
+        "Bare rocks"@en .
+
+vocab:salines a skos:Concept ;
+    skos:broader vocab:coastal_wetlands ;
+    skos:definition "Solné oblasti."@cs,
+        "Salt extraction."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "422"^^xsd:string ;
+    skos:prefLabel "Solné pánve"@cs,
+        "Salines"@en .
+
+vocab:salt_marshes a skos:Concept ;
+    skos:broader vocab:coastal_wetlands ;
+    skos:definition "Slané mokřady."@cs,
+        "Saline wetlands."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "421"^^xsd:string ;
+    skos:prefLabel "Slané bažiny"@cs,
+        "Salt marshes"@en .
+
+vocab:sclerophyllous a skos:Concept ;
+    skos:broader vocab:scrub ;
+    skos:definition "Tvrdolistá vegetace."@cs,
+        "Hard-leaved vegetation."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "323"^^xsd:string ;
+    skos:prefLabel "Středomořská vegetace"@cs,
+        "Sclerophyllous vegetation"@en .
+
+vocab:sea a skos:Concept ;
+    skos:broader vocab:marine ;
+    skos:definition "Moře."@cs,
+        "Sea."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "523"^^xsd:string ;
+    skos:prefLabel "Moře a oceán"@cs,
+        "Sea and ocean"@en .
+
+vocab:sparse a skos:Concept ;
+    skos:broader vocab:open_spaces ;
+    skos:definition "Řídká vegetace."@cs,
+        "Sparse vegetation."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "333"^^xsd:string ;
+    skos:prefLabel "Řídce zarostlé plochy"@cs,
+        "Sparsely vegetated areas"@en .
+
+vocab:sport_leisure a skos:Concept ;
+    skos:broader vocab:urban_green ;
+    skos:definition "Rekreační areály."@cs,
+        "Recreation facilities."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "142"^^xsd:string ;
+    skos:prefLabel "Sportovní a rekreační areály"@cs,
+        "Sport and leisure facilities"@en .
+
+vocab:transitional a skos:Concept ;
+    skos:broader vocab:scrub ;
+    skos:definition "Přechodné porosty."@cs,
+        "Přechod mezi lesem a křovinami."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "324"^^xsd:string ;
+    skos:prefLabel "Přechodné lesy"@cs,
+        "Transitional woodland-shrub"@en .
+
+vocab:transport_networks a skos:Concept ;
+    skos:broader vocab:industrial_transport ;
+    skos:definition "Silnice a železnice."@cs,
+        "Transport infrastructure."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "122"^^xsd:string ;
+    skos:prefLabel "Dopravní sítě"@cs,
+        "Road and rail networks"@en .
+
+vocab:unclassified_land a skos:Concept ;
+    skos:definition "Nezařazeno."@cs,
+        "Unclassified."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "990"^^xsd:string ;
+    skos:prefLabel "Nezařazená pevnina"@cs,
+        "Unclassified land"@en ;
+    skos:topConceptOf vocab: .
+
+vocab:unclassified_water a skos:Concept ;
+    skos:definition "Nezařazeno."@cs,
+        "Unclassified."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "995"^^xsd:string ;
+    skos:prefLabel "Nezařazená voda"@cs,
+        "Unclassified water"@en ;
+    skos:topConceptOf vocab: .
+
+vocab:vineyards a skos:Concept ;
+    skos:broader vocab:permanent_crops ;
+    skos:definition "Vinná réva."@cs,
+        "Grapes."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "221"^^xsd:string ;
+    skos:prefLabel "Vinice"@cs,
+        "Vineyards"@en .
+
+vocab:waterbodies a skos:Concept ;
+    skos:broader vocab:inland_water ;
+    skos:definition "Jezera."@cs,
+        "Jezera."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "512"^^xsd:string ;
+    skos:prefLabel "Vodní nádrže"@cs,
+        "Water bodies"@en .
+
+vocab:watercourses a skos:Concept ;
+    skos:broader vocab:inland_water ;
+    skos:definition "Řeky."@cs,
+        "Rivers."@en ;
+    skos:inScheme vocab: ;
+    skos:notation "511"^^xsd:string ;
+    skos:prefLabel "Vodní toky"@cs,
+        "Water courses"@en .
+
+vocab:pastures a skos:Concept ;
+    skos:broader vocab:agricultural ;
+    skos:definition "Pastva."@cs,
+        "Grazing land."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:pastures_detail ;
+    skos:notation "23"^^xsd:string ;
+    skos:prefLabel "Pastviny"@cs,
+        "Pastures"@en .
+
+vocab:inland_water a skos:Concept ;
+    skos:broader vocab:water ;
+    skos:definition "Sladká voda."@cs,
+        "Freshwater."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:waterbodies,
+        vocab:watercourses ;
+    skos:notation "51"^^xsd:string ;
+    skos:prefLabel "Vnitrozemské vody"@cs,
+        "Inland waters"@en .
+
+vocab:inland_wetlands a skos:Concept ;
+    skos:broader vocab:wetlands ;
+    skos:definition "Sladkovodní mokřady."@cs,
+        "Freshwater wetlands."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:marshes,
+        vocab:peatbogs ;
+    skos:notation "41"^^xsd:string ;
+    skos:prefLabel "Vnitrozemské mokřady"@cs,
+        "Inland wetlands"@en .
+
+vocab:urban_fabric a skos:Concept ;
+    skos:broader vocab:artificial ;
+    skos:definition "Obytné městské oblasti."@cs,
+        "Urban residential areas."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:continuous_urban_fabric,
+        vocab:discontinuous_urban_fabric ;
+    skos:notation "11"^^xsd:string ;
+    skos:prefLabel "Městská zástavba"@cs,
+        "Urban fabric"@en .
+
+vocab:urban_green a skos:Concept ;
+    skos:broader vocab:artificial ;
+    skos:definition "Městská zeleň."@cs,
+        "Urban green spaces."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:green_urban,
+        vocab:sport_leisure ;
+    skos:notation "14"^^xsd:string ;
+    skos:prefLabel "Umělé zelené plochy"@cs,
+        "Artificial non-agricultural vegetated areas"@en .
+
+vocab:water a skos:Concept ;
+    skos:definition "Vodní plochy."@cs,
+        "Water surfaces."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:inland_water,
+        vocab:marine ;
+    skos:notation "5"^^xsd:string ;
+    skos:prefLabel "Vodní plochy"@cs,
+        "Water bodies"@en ;
+    skos:topConceptOf vocab: .
+
+vocab:wetlands a skos:Concept ;
+    skos:definition "Mokřady."@cs,
+        "Wet environments."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:coastal_wetlands,
+        vocab:inland_wetlands ;
+    skos:notation "4"^^xsd:string ;
+    skos:prefLabel "Mokřady"@cs,
+        "Wetlands"@en ;
+    skos:topConceptOf vocab: .
+
+vocab:arable_land a skos:Concept ;
+    skos:broader vocab:agricultural ;
+    skos:definition "Pěstování plodin."@cs,
+        "Crop production."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:irrigated_arable,
+        vocab:non_irrigated_arable,
+        vocab:rice_fields ;
+    skos:notation "21"^^xsd:string ;
+    skos:prefLabel "Orná půda"@cs,
+        "Arable land"@en .
+
+vocab:coastal_wetlands a skos:Concept ;
+    skos:broader vocab:wetlands ;
+    skos:definition "Pobřežní mokřady."@cs,
+        "Coastal wet areas."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:intertidal,
+        vocab:salines,
+        vocab:salt_marshes ;
+    skos:notation "42"^^xsd:string ;
+    skos:prefLabel "Pobřežní mokřady"@cs,
+        "Coastal wetlands"@en .
+
+vocab:extractive a skos:Concept ;
+    skos:broader vocab:artificial ;
+    skos:definition "Těžba a odpady."@cs,
+        "Extraction and waste areas."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:construction_sites,
+        vocab:dump_sites,
+        vocab:mineral_extraction ;
+    skos:notation "13"^^xsd:string ;
+    skos:prefLabel "Těžební a odpadní plochy"@cs,
+        "Mine and dump sites"@en .
+
+vocab:forest a skos:Concept ;
+    skos:definition "Přírodní vegetace."@cs,
+        "Natural vegetation."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:forests,
+        vocab:open_spaces,
+        vocab:scrub ;
+    skos:notation "3"^^xsd:string ;
+    skos:prefLabel "Lesy a přírodní plochy"@cs,
+        "Forest and semi-natural areas"@en ;
+    skos:topConceptOf vocab: .
+
+vocab:forests a skos:Concept ;
+    skos:broader vocab:forest ;
+    skos:definition "Lesy."@cs,
+        "Tree cover."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:broadleaf,
+        vocab:coniferous,
+        vocab:mixed ;
+    skos:notation "31"^^xsd:string ;
+    skos:prefLabel "Lesy"@cs,
+        "Forests"@en .
+
+vocab:marine a skos:Concept ;
+    skos:broader vocab:water ;
+    skos:definition "Moře."@cs,
+        "Sea areas."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:estuaries,
+        vocab:lagoons,
+        vocab:sea ;
+    skos:notation "52"^^xsd:string ;
+    skos:prefLabel "Mořské vody"@cs,
+        "Marine waters"@en .
+
+vocab:permanent_crops a skos:Concept ;
+    skos:broader vocab:agricultural ;
+    skos:definition "Trvalé kultury."@cs,
+        "Long-term crops."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:fruit,
+        vocab:olive,
+        vocab:vineyards ;
+    skos:notation "22"^^xsd:string ;
+    skos:prefLabel "Trvalé kultury"@cs,
+        "Permanent crops"@en .
+
+vocab:agricultural a skos:Concept ;
+    skos:definition "Zemědělská půda."@cs,
+        "Land used for agriculture."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:arable_land,
+        vocab:heterogeneous,
+        vocab:pastures,
+        vocab:permanent_crops ;
+    skos:notation "2"^^xsd:string ;
+    skos:prefLabel "Zemědělské plochy"@cs,
+        "Agricultural areas"@en ;
+    skos:topConceptOf vocab: .
+
+vocab:artificial a skos:Concept ;
+    skos:definition "Zastavěné plochy a infrastruktura."@cs,
+        "Built-up areas and infrastructure."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:extractive,
+        vocab:industrial_transport,
+        vocab:urban_fabric,
+        vocab:urban_green ;
+    skos:notation "1"^^xsd:string ;
+    skos:prefLabel "Umělé povrchy"@cs,
+        "Artificial surfaces"@en ;
+    skos:topConceptOf vocab: .
+
+vocab:heterogeneous a skos:Concept ;
+    skos:broader vocab:agricultural ;
+    skos:definition "Smíšené zemědělství."@cs,
+        "Mixed agriculture."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:agri_natural,
+        vocab:agroforestry,
+        vocab:annual_perm_mix,
+        vocab:complex_patterns ;
+    skos:notation "24"^^xsd:string ;
+    skos:prefLabel "Mosaikovitá krajina"@cs,
+        "Heterogeneous agricultural areas"@en .
+
+vocab:industrial_transport a skos:Concept ;
+    skos:broader vocab:artificial ;
+    skos:definition "Průmysl a doprava."@cs,
+        "Industrial and transport infrastructure."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:airports,
+        vocab:industrial_units,
+        vocab:ports,
+        vocab:transport_networks ;
+    skos:notation "12"^^xsd:string ;
+    skos:prefLabel "Průmyslové a dopravní plochy"@cs,
+        "Industrial and transport units"@en .
+
+vocab:scrub a skos:Concept ;
+    skos:broader vocab:forest ;
+    skos:definition "Křoviny."@cs,
+        "Shrub and grass."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:moors,
+        vocab:natural_grasslands,
+        vocab:sclerophyllous,
+        vocab:transitional ;
+    skos:notation "32"^^xsd:string ;
+    skos:prefLabel "Křoviny a traviny"@cs,
+        "Scrub and herbaceous vegetation"@en .
+
+vocab:open_spaces a skos:Concept ;
+    skos:broader vocab:forest ;
+    skos:definition "Málo vegetace."@cs,
+        "Little vegetation."@en ;
+    skos:inScheme vocab: ;
+    skos:narrower vocab:beaches,
+        vocab:burnt,
+        vocab:glaciers,
+        vocab:rocks,
+        vocab:sparse ;
+    skos:notation "33"^^xsd:string ;
+    skos:prefLabel "Otevřená krajina"@cs,
+        "Open spaces with little vegetation"@en .
+
+vocab: a skos:ConceptScheme ;
+    dct:title "Klasifikace využití území (Corine Land Cover)"@cs,
+        "Land Use Classification (Corine Land Cover)"@en ;
+    skos:hasTopConcept vocab:agricultural,
+        vocab:artificial,
+        vocab:forest,
+        vocab:nodata,
+        vocab:unclassified_land,
+        vocab:unclassified_water,
+        vocab:water,
+        vocab:wetlands .
+
