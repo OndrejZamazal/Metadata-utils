@@ -1,0 +1,248 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix semapv: <https://w3id.org/semapv/vocab/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sssom: <https://w3id.org/sssom/> .
+
+<https://w3id.org/sssom/mappings/ccd9a4a4-913a-4053-b329-ef3a7c97684e> a sssom:MappingSet ;
+    dcterms:license <https://w3id.org/sssom/license/unspecified> ;
+    sssom:mappings [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Preprint> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_816b> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "preprint" ;
+            sssom:subject_label "Preprint" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Collection> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/RMP5-3GQ6> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "collection" ;
+            sssom:subject_label "Collection" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:closeMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Model> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/542X-3S04> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "design" ;
+            sssom:subject_label "Model" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/PeerReview> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/H9BQ-739P> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "peer review" ;
+            sssom:subject_label "PeerReview" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:broadMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/BookChapter> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_3248> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "book part" ;
+            sssom:subject_label "BookChapter" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Text> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_18cf> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "text" ;
+            sssom:subject_label "Text" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:relatedMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Project> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_1843> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "other" ;
+            sssom:subject_label "Project" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:closeMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Poster> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_6670> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "conference poster" ;
+            sssom:subject_label "Poster" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/ConferenceProceeding> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_f744> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "conference proceedings" ;
+            sssom:subject_label "ConferenceProceeding" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/InteractiveResource> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_e9a0> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "interactive resource" ;
+            sssom:subject_label "InteractiveResource" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:relatedMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Award> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_1843> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "other" ;
+            sssom:subject_label "Award" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Workflow> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_393c> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "workflow" ;
+            sssom:subject_label "Workflow" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Software> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_5ce6> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "software" ;
+            sssom:subject_label "Software" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Instrument> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/8KJG-QS0Y> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "research instrument" ;
+            sssom:subject_label "Instrument" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:closeMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Audiovisual> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_8a7e> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "moving image" ;
+            sssom:subject_label "Audiovisual" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Dataset> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_ddb1> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "dataset" ;
+            sssom:subject_label "Dataset" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:relatedMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Event> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_1843> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "other" ;
+            sssom:subject_label "Event" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:closeMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/OutputManagementPlan> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_ab20> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "data management plan" ;
+            sssom:subject_label "OutputManagementPlan" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Report> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_93fc> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "report" ;
+            sssom:subject_label "Report" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:broadMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/ComputationalNotebook> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/H41Y-FW7B> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "laboratory notebook" ;
+            sssom:subject_label "ComputationalNotebook" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:closeMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Presentation> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/R60J-J5BD> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "conference presentation" ;
+            sssom:subject_label "Presentation" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/DataPaper> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_beb9> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "data paper" ;
+            sssom:subject_label "DataPaper" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Other> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_1843> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "other" ;
+            sssom:subject_label "Other" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Book> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_2f33> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "book" ;
+            sssom:subject_label "Book" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:broadMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Dissertation> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_46ec> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "thesis" ;
+            sssom:subject_label "Dissertation" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/ConferencePaper> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_5794> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "conference paper" ;
+            sssom:subject_label "ConferencePaper" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:broadMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Standard> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_18cf> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "text" ;
+            sssom:subject_label "Standard" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:broadMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/StudyRegistration> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/YZ1N-ZFT9> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "research protocol" ;
+            sssom:subject_label "StudyRegistration" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/JournalArticle> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_6501> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "journal article" ;
+            sssom:subject_label "JournalArticle" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:relatedMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Service> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_1843> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "other" ;
+            sssom:subject_label "Service" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Image> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_c513> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "still image" ;
+            sssom:subject_label "Image" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Sound> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_18cc> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "sound" ;
+            sssom:subject_label "Sound" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:closeMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/PhysicalObject> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/S7R1-K5P0> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "physical sample" ;
+            sssom:subject_label "PhysicalObject" ],
+        [ a owl:Axiom ;
+            owl:annotatedProperty skos:exactMatch ;
+            owl:annotatedSource <http://example.org/sssom/datacite/resourceType/Journal> ;
+            owl:annotatedTarget <http://purl.org/coar/resource_type/c_0640> ;
+            sssom:mapping_justification semapv:UnspecifiedMatching ;
+            sssom:object_label "journal" ;
+            sssom:subject_label "Journal" ] .
+
+
