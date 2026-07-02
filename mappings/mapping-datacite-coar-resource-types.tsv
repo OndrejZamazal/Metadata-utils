@@ -1,0 +1,35 @@
+subject_id	subject_label	predicate_id	object_id	object_label
+http://example.org/sssom/datacite/resourceType/Model	Model	http://www.w3.org/2004/02/skos/core#closeMatch	http://purl.org/coar/resource_type/542X-3S04	design
+http://example.org/sssom/datacite/resourceType/Instrument	Instrument	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/8KJG-QS0Y	research instrument
+http://example.org/sssom/datacite/resourceType/ComputationalNotebook	ComputationalNotebook	http://www.w3.org/2004/02/skos/core#broadMatch	http://purl.org/coar/resource_type/H41Y-FW7B	laboratory notebook
+http://example.org/sssom/datacite/resourceType/PeerReview	PeerReview	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/H9BQ-739P	peer review
+http://example.org/sssom/datacite/resourceType/Presentation	Presentation	http://www.w3.org/2004/02/skos/core#closeMatch	http://purl.org/coar/resource_type/R60J-J5BD	conference presentation
+http://example.org/sssom/datacite/resourceType/Collection	Collection	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/RMP5-3GQ6	collection
+http://example.org/sssom/datacite/resourceType/PhysicalObject	PhysicalObject	http://www.w3.org/2004/02/skos/core#closeMatch	http://purl.org/coar/resource_type/S7R1-K5P0	physical sample
+http://example.org/sssom/datacite/resourceType/StudyRegistration	StudyRegistration	http://www.w3.org/2004/02/skos/core#broadMatch	http://purl.org/coar/resource_type/YZ1N-ZFT9	research protocol
+http://example.org/sssom/datacite/resourceType/Journal	Journal	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_0640	journal
+http://example.org/sssom/datacite/resourceType/Award	Award	http://www.w3.org/2004/02/skos/core#relatedMatch	http://purl.org/coar/resource_type/c_1843	other
+http://example.org/sssom/datacite/resourceType/Service	Service	http://www.w3.org/2004/02/skos/core#relatedMatch	http://purl.org/coar/resource_type/c_1843	other
+http://example.org/sssom/datacite/resourceType/Other	Other	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_1843	other
+http://example.org/sssom/datacite/resourceType/Event	Event	http://www.w3.org/2004/02/skos/core#relatedMatch	http://purl.org/coar/resource_type/c_1843	other
+http://example.org/sssom/datacite/resourceType/Project	Project	http://www.w3.org/2004/02/skos/core#relatedMatch	http://purl.org/coar/resource_type/c_1843	other
+http://example.org/sssom/datacite/resourceType/Sound	Sound	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_18cc	sound
+http://example.org/sssom/datacite/resourceType/Standard	Standard	http://www.w3.org/2004/02/skos/core#broadMatch	http://purl.org/coar/resource_type/c_18cf	text
+http://example.org/sssom/datacite/resourceType/Text	Text	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_18cf	text
+http://example.org/sssom/datacite/resourceType/Book	Book	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_2f33	book
+http://example.org/sssom/datacite/resourceType/BookChapter	BookChapter	http://www.w3.org/2004/02/skos/core#broadMatch	http://purl.org/coar/resource_type/c_3248	book part
+http://example.org/sssom/datacite/resourceType/Workflow	Workflow	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_393c	workflow
+http://example.org/sssom/datacite/resourceType/Dissertation	Dissertation	http://www.w3.org/2004/02/skos/core#broadMatch	http://purl.org/coar/resource_type/c_46ec	thesis
+http://example.org/sssom/datacite/resourceType/ConferencePaper	ConferencePaper	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_5794	conference paper
+http://example.org/sssom/datacite/resourceType/Software	Software	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_5ce6	software
+http://example.org/sssom/datacite/resourceType/JournalArticle	JournalArticle	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_6501	journal article
+http://example.org/sssom/datacite/resourceType/Poster	Poster	http://www.w3.org/2004/02/skos/core#closeMatch	http://purl.org/coar/resource_type/c_6670	conference poster
+http://example.org/sssom/datacite/resourceType/Preprint	Preprint	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_816b	preprint
+http://example.org/sssom/datacite/resourceType/Audiovisual	Audiovisual	http://www.w3.org/2004/02/skos/core#closeMatch	http://purl.org/coar/resource_type/c_8a7e	moving image
+http://example.org/sssom/datacite/resourceType/Report	Report	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_93fc	report
+http://example.org/sssom/datacite/resourceType/OutputManagementPlan	OutputManagementPlan	http://www.w3.org/2004/02/skos/core#closeMatch	http://purl.org/coar/resource_type/c_ab20	data management plan
+http://example.org/sssom/datacite/resourceType/DataPaper	DataPaper	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_beb9	data paper
+http://example.org/sssom/datacite/resourceType/Dataset	Dataset	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_ddb1	dataset
+http://example.org/sssom/datacite/resourceType/InteractiveResource	InteractiveResource	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_e9a0	interactive resource
+http://example.org/sssom/datacite/resourceType/Image	Image	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_c513	still image
+http://example.org/sssom/datacite/resourceType/ConferenceProceeding	ConferenceProceeding	http://www.w3.org/2004/02/skos/core#exactMatch	http://purl.org/coar/resource_type/c_f744	conference proceedings
