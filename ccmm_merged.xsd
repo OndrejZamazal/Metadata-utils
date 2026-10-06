@@ -1,7 +1,54 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:ccmm="https://schema.ccmm.cz/research-data/1.1" xmlns:sawsdl="http://www.w3.org/ns/sawsdl" xmlns:gml="http://www.opengis.net/gml/3.2" vc:minVersion="1.1" elementFormDefault="qualified" targetNamespace="https://schema.ccmm.cz/research-data/1.1">
-  <xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="http://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:vc="http://www.w3.org/2007/XMLSchema-versioning" xmlns:ccmm="https://schema.ccmm.cz/research-data/2.0" xmlns:sawsdl="http://www.w3.org/ns/sawsdl" xmlns:gml="http://www.opengis.net/gml/3.2" vc:minVersion="1.1" elementFormDefault="qualified" targetNamespace="https://schema.ccmm.cz/research-data/2.0">
+  <xs:import namespace="http://www.opengis.net/gml/3.2" schemaLocation="https://schemas.opengis.net/gml/3.2.1/gml.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+  <xs:complexType name="resource_attribution" sawsdl:modelReference="http://www.w3.org/ns/prov#Attribution">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Resource attribution - Attribution is the ascribing of a Resource to an agent. It defines the responsibility of an agent to the resource in a given role.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
+      <xs:element name="attributed_agent" sawsdl:modelReference="http://www.w3.org/ns/prov#agent">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            has attributed agent - The agent attributed to the resource.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType sawsdl:modelReference="http://www.w3.org/ns/prov#agent">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              has attributed agent - The agent attributed to the resource.
+            </xs:documentation>
+          </xs:annotation>
+          <xs:choice>
+            <xs:element name="organization" type="ccmm:organization"/>
+            <xs:element name="person" type="ccmm:person"/>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="role" type="ccmm:attributed_agent_role_type" sawsdl:modelReference="http://www.w3.org/ns/dcat#hadRole">
+        <xs:annotation>
+          <xs:documentation xml:lang="cs">
+            sehraná role
+          </xs:documentation>
+          <xs:documentation xml:lang="da">
+            havde rolle
+          </xs:documentation>
+          <xs:documentation xml:lang="en">
+            had role
+            May be used in a qualified-attribution to specify the role of an Agent with respect to an Resource. It is recommended that the value be taken from code list https://vocabs.ccmm.cz/registry/codelist/AgentRole/.
+          </xs:documentation>
+          <xs:documentation xml:lang="it">
+            tiene rol
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="resource_attribution" type="ccmm:resource_attribution"/>
   <xs:complexType name="time_instant" sawsdl:modelReference="http://www.w3.org/2006/time#Instant">
     <xs:annotation>
       <xs:documentation xml:lang="en">
@@ -67,7 +114,7 @@
         Datatjeneste - Et websted eller endpoint der udstiller operationer relateret til opdagelse af, adgang til eller behandlende funktioner på data eller relaterede ressourcer.
       </xs:documentation>
       <xs:documentation xml:lang="en">
-        Data service - A collection of operations that provides access to one or more datasets or data processing functions.
+        Data Service - A collection of operations that provides access to one or more datasets or data processing functions.
       </xs:documentation>
       <xs:documentation xml:lang="es">
         Servicio de datos - Un sitio o end-point que provee operaciones relacionadas a funciones de descubrimiento, acceso, o procesamiento de datos o recursos relacionados.
@@ -78,7 +125,7 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://purl.org/dc/terms/title">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             label - Data service label
@@ -88,6 +135,7 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -111,6 +159,13 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element minOccurs="0" name="licence" type="ccmm:licence_document" sawsdl:modelReference="http://purl.org/dc/terms/license">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            has licence - A licence under which the Data service is made available.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
       <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
     </xs:sequence>
   </xs:complexType>
@@ -118,23 +173,27 @@
   <xs:complexType name="access_rights" sawsdl:modelReference="http://purl.org/dc/terms/RightsStatement">
     <xs:annotation>
       <xs:documentation xml:lang="en">
-        Access rights - A statement about the access rights to the dataset.
-        Use IRI identifier from the register http://purl.org/coar/access_right/.
+        Access rights - A statement about the access rights to the resource.
+        Use IRI identifier from the register http://purl.org/coar/access_right/. Recommended mapping of values from COAR to https://semiceu.github.io/DCAT-AP/drafts/latest/#properties-with-a-recommended-use-of-controlled-vocabularies is:
+        embargoed access, metadata only access - :NON_PUBLIC,
+        open access - :PUBLIC,
+        restricted access - :RESTRICTED.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            label - Label of the access rights vocabulary value.
-            Short label of the value from register http://purl.org/coar/access_right/. Allowed English values are 'embargoes access', 'metadata only access', 'open access' and 'restricted access'.
+            label - A human-readable name for the subject.
+            Use the label of the value from register http://purl.org/coar/access_right/. Allowed English values are 'embargoes access', 'metadata only access', 'open access' and 'restricted access'. This property may be repeated for parallel language versions of the label.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -154,18 +213,19 @@
       <xs:element name="temporal_representation" type="ccmm:time_representation" sawsdl:modelReference="http://www.w3.org/2006/time#hasTime">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            has temporal representation
+            has temporal representation - Represents the representation of a temporal entity (instant or interval).
           </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="date_type" type="ccmm:date_type" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasType">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            has date type - Reference to the codelist of date types.
+            has date type - Reference to the code list of date types.
+            References to the value from the code list https://w3id.org/tib/datacite/vocab/dateType.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" name="date_information" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#dateInformation">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="date_information" sawsdl:modelReference="https://w3id.org/tib/datacite/property/dateInformation">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             date information - Additional information to the date in text form.
@@ -176,6 +236,7 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -192,16 +253,17 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element maxOccurs="unbounded" name="title" sawsdl:modelReference="http://purl.org/dc/terms/title">
+      <xs:element maxOccurs="unbounded" name="title" sawsdl:modelReference="http://purl.org/dc/terms/alternative">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            title - A human-readable name for the subject.
+            title - An alternative name for the resource.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -210,7 +272,7 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has alternate title type - Type of the alternate name relation.
-            References to the value from https://vocabs.ccmm.cz/registry/codelist/AlternateTitle/.
+            References to the value from the code list https://w3id.org/tib/datacite/vocab/titleType.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -218,6 +280,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="alternate_title" type="ccmm:alternate_title"/>
+  <xs:complexType name="ro-crate_json_representation" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#Ro-crateJsonRepresentation">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        RO-Crate JSON representation - Representation of provenance activity in JSON-LD format corresponding to the RO-Crate specification.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="iri" type="xs:anyURI"/>
+      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ro-crate_json_representation" type="ccmm:ro-crate_json_representation"/>
   <xs:complexType name="dataset" sawsdl:modelReference="http://www.w3.org/ns/dcat#Dataset">
     <xs:annotation>
       <xs:documentation xml:lang="ar">
@@ -233,7 +307,7 @@
         Σύνολο Δεδομένων - Μία συλλογή από δεδομένα, δημοσιευμένη ή επιμελημένη από μία και μόνο πηγή, διαθέσιμη δε προς πρόσβαση ή μεταφόρτωση σε μία ή περισσότερες μορφές.
       </xs:documentation>
       <xs:documentation xml:lang="en">
-        Dataset - A conceptual entity that represents the information published. 
+        Dataset - A conceptual entity that represents the information published.
       </xs:documentation>
       <xs:documentation xml:lang="es">
         Conjunto de datos - Una colección de datos, publicados o conservados por una única fuente, y disponibles para ser accedidos o descargados en uno o más formatos.
@@ -257,53 +331,47 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element maxOccurs="unbounded" name="identifier" type="ccmm:identifier" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasIdentifier">
+      <xs:element maxOccurs="unbounded" name="identifier" type="ccmm:identifier" sawsdl:modelReference="http://www.w3.org/ns/adms#identifier">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            has identifier - has identifier
+            has identifier - The identifier for the Dataset, e.g., the URI or other unique identifier in the context of the Catalogue.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" name="version" type="xs:string" sawsdl:modelReference="http://www.w3.org/ns/dcat#version">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            version - The version indicator (name or identifier) of a resource.
-          </xs:documentation>
-          <xs:documentation xml:lang="es">
-            El indicador de versión (nombre o identificador) del recurso.
-          </xs:documentation>
-          <xs:documentation xml:lang="it">
-            L'indicatore di versione (un nome o un identificatore) di una risorsa.
+            version
           </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="title" type="xs:string" sawsdl:modelReference="http://purl.org/dc/terms/title">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            title - A name given to the dataset.
+            title - A name given to the resource.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="alternate_title" type="ccmm:alternate_title" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasAlternateTitle">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            has alternate title
+            has alternate title - References to the alternate title of the resource.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="qualified_relation" type="ccmm:resource_to_agent_relationship" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#qualifiedRelation">
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="qualified_attribution" type="ccmm:resource_attribution" sawsdl:modelReference="http://www.w3.org/ns/prov#qualifiedAttribution">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            qualified relation
-            Link to a description of a relationship between resource and an agent with the specification of the role of agent in this relationship.
+            qualified attribution - A link to a description of a relationship between resource and an agent with the specification of the role of agent in this relationship.
+            If the resource is Dataset, it has to have at least one qualified attribution relation with the role Creator, also, it is recommended to have other qualified relation to the organization with the role Publisher.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="publication_year" type="xs:gYear" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#relatedItemPublicationYear">
+      <xs:element name="publication_year" type="xs:gYear" sawsdl:modelReference="https://w3id.org/tib/datacite/property/publicationYear">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             publication year - The year when the item was or will be made publicly available.
-            If TimeReference with dateType "Issued" is present, year in that date and publicationYear must be the same“
+            If TimeReference with dateType "Issued" is present, the year in that date and publicationYear must be the same.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -311,7 +379,7 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has time reference - Reference to events related to the dataset.
-            Must contain at least one time reference with date type value "Created"  from  https://vocabs.ccmm.cz/registry/codelist/TimeReference/.
+            Must contain at least one time reference with date type value "Created"  represented by https://w3id.org/tib/datacite/vocab/dateType/Created.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -323,42 +391,86 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" name="primary_language" type="ccmm:language_system" sawsdl:modelReference="http://purl.org/dc/terms/language">
+      <xs:element minOccurs="0" name="primary_language" type="ccmm:language_system" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasPrimaryLanguage">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            has primary language - A primary language of the Dataset.
+            Use language IRI identifier from the register http://publications.europa.eu/resource/authority/language.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="other_language" type="ccmm:language_system" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasOtherLanguage">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has other language - Any other languages of the Dataset.
-            This property can be repeated if there are multiple languages in the Dataset.
+            Use language IRI identifier from the register http://publications.europa.eu/resource/authority/language. This property can be repeated if there are multiple other languages in the Dataset.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="other_language" type="ccmm:language_system" sawsdl:modelReference="http://purl.org/dc/terms/language">
+      <xs:element name="access_rights" type="ccmm:access_rights" sawsdl:modelReference="http://purl.org/dc/terms/accessRights">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            has other language - Any other languages of the Dataset.
-            This property can be repeated if there are multiple languages in the Dataset.
+            has access rights - Information that declares the access status of a Dataset.
+            Use IRI identifier from the register http://purl.org/coar/access_right/. Recommended mapping of values from COAR to https://semiceu.github.io/DCAT-AP/drafts/latest/#properties-with-a-recommended-use-of-controlled-vocabularies is:
+            - embargoed access, metadata only access mapped to :NON_PUBLIC,
+            - open access mapped to :PUBLIC,
+            - restricted access mapped to :RESTRICTED.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="terms_of_use" type="ccmm:terms_of_use" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#hasRights">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">
-            has terms of use
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element maxOccurs="unbounded" name="subject" type="ccmm:subject" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#hasSubject">
+      <xs:element maxOccurs="unbounded" name="subject" type="ccmm:subject" sawsdl:modelReference="https://w3id.org/tib/datacite/property/subject">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has subject - Dataset described using a subject.
-            At least one subject must be a value from FRASCATI FORD vocabulary. For that subject use reference codelist https://vocabs.ccmm.cz/registry/codelist/SubjectCategory/ as the Subject scheme and select at least one value from this codelist as a subject.
+            At least one subject must be a value from the Frascati FORD vocabulary. For that subject use reference code list https://vocabs.ccmm.cz/registry/codelist/SubjectCategory/ as the Subject scheme and select at least one value from this code list as a subject.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="description" type="ccmm:description" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#hasDescription">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="keyword" sawsdl:modelReference="http://www.w3.org/ns/dcat#keyword">
+        <xs:annotation>
+          <xs:documentation xml:lang="ar">
+            كلمة  مفتاحية 
+          </xs:documentation>
+          <xs:documentation xml:lang="cs">
+            klíčové slovo
+          </xs:documentation>
+          <xs:documentation xml:lang="da">
+            nøgleord
+          </xs:documentation>
+          <xs:documentation xml:lang="el">
+            λέξη-κλειδί
+          </xs:documentation>
+          <xs:documentation xml:lang="en">
+            keyword - Keyword or tag describing the dataset.
+            Preferably use terms from controlled vocabularies.
+          </xs:documentation>
+          <xs:documentation xml:lang="es">
+            palabra clave
+          </xs:documentation>
+          <xs:documentation xml:lang="fr">
+            mot-clés 
+          </xs:documentation>
+          <xs:documentation xml:lang="it">
+            parola chiave
+          </xs:documentation>
+          <xs:documentation xml:lang="ja">
+            キーワード/タグ
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" name="description" type="ccmm:description" sawsdl:modelReference="https://w3id.org/tib/datacite/property/description">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has description - Relation to the description of a dataset.
-            Description may have various type from the codelist https://vocabs.ccmm.cz/registry/codelist/DescriptionType/. 
+            Description may have various type from the code list https://w3id.org/tib/datacite/vocab/descriptionType.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -366,18 +478,18 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has location - The geographical area covered by the dataset.
-            In the CCMM spatial coverage does not only cover the area of dataset, it may be connected to the dataset in some other way, e.g. the place from where the data were measured, administrative area to which the dataset  conforms or other.
+            In CCMM, spatial coverage does not only cover the area of resource, it may be connected to the resource in some other way, e.g., the place from where the data were measured or administrative area to which the resource conforms or other.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="funding_reference" type="ccmm:funding_reference" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#hasFundingReference">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="funding_reference" type="ccmm:funding_reference" sawsdl:modelReference="https://w3id.org/tib/datacite/property/fundingReference">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has funding reference - Has reference for funding of a dataset acquisition.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="related_resource" type="ccmm:related_resource" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasRelatedResource">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="related_resource" type="ccmm:related_resource" sawsdl:modelReference="http://purl.org/dc/terms/relation">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has related resource - Reference to the resource in any way related to the described dataset.
@@ -423,10 +535,11 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="provenance" type="ccmm:provenance_statement" sawsdl:modelReference="http://purl.org/dc/terms/provenance">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="generated_by" type="ccmm:provenance_activity" sawsdl:modelReference="http://www.w3.org/ns/prov#wasGeneratedBy">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            has provenance - A statement about the lineage of a Dataset.
+            was generated by -  An activity that generated, or provides the business context for, the creation of the dataset. 
+            The activity associated with generation of a dataset will be typically an initiative, project, mission, survey, or ongoing activity. Multiple prov:wasGeneratedBy properties can be used to indicate the dataset production context at various levels of granularity. Use prov:qualifiedGeneration to attach additional details about the relationship between the dataset and the activity, e.g., the exact time that the dataset was produced during the lifetime of a project.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -452,6 +565,7 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -464,21 +578,23 @@
     <xs:annotation>
       <xs:documentation xml:lang="en">
         Date type - Type of a date in relation to the resource.
-        Use value from codelist https://vocabs.ccmm.cz/registry/codelist/TimeReference/.
+        Use value from the code list https://w3id.org/tib/datacite/vocab/dateType.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             label - Date type label.
+            Use label of a corresponding value from the code list https://w3id.org/tib/datacite/vocab/dateType. This property may be repeated for parallel language versions of the label.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -494,25 +610,27 @@
     </xs:choice>
   </xs:complexType>
   <xs:element name="time_representation" type="ccmm:time_representation"/>
-  <xs:complexType name="description_type" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#DescriptionType">
+  <xs:complexType name="description_type" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#Concept">
     <xs:annotation>
       <xs:documentation xml:lang="en">
         Description type - The type of the description.
-        Use value from codelist https://vocabs.ccmm.cz/registry/codelist/DescriptionType/.
+        Use value from the code list https://w3id.org/tib/datacite/vocab/descriptionType.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element name="iri" type="xs:anyURI"/>
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             label - Label of the description type.
+            Use the label of the corresponding value from the code list https://w3id.org/tib/datacite/vocab/descriptionType. This property may be repeated for parallel language versions of the label.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -539,6 +657,7 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -547,7 +666,7 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="documentation" type="ccmm:documentation"/>
-  <xs:complexType name="funding_reference" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#FundingReference">
+  <xs:complexType name="funding_reference" sawsdl:modelReference="https://w3id.org/tib/datacite/class/FundingReference">
     <xs:annotation>
       <xs:documentation xml:lang="en">
         Funding reference - Information about financial support (funding) for the resource being registered.
@@ -555,7 +674,7 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" name="local_identifier" type="xs:string" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#awardNumber">
+      <xs:element minOccurs="0" name="local_identifier" type="xs:string" sawsdl:modelReference="https://w3id.org/tib/datacite/property/awardNumber">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             local identifier - The code assigned by the funder to a sponsored award (grant).
@@ -563,10 +682,10 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" name="award_title" type="xs:string" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#awardTitle">
+      <xs:element minOccurs="0" name="award_title" type="xs:string" sawsdl:modelReference="https://w3id.org/tib/datacite/property/awardTitle">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            award title -  The human readable title or name of the award (grant).
+            award title - The human readable title or name of the award (grant).
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -577,10 +696,10 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element maxOccurs="unbounded" name="funder" type="ccmm:agent" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#hasFunderIdentifier">
+      <xs:element maxOccurs="unbounded" name="funder" type="ccmm:agent" sawsdl:modelReference="https://w3id.org/tib/datacite/property/funderIdentifier">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            has funder - Relation to the agent entity of a funder.
+            has funder
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -590,40 +709,44 @@
   <xs:element name="funding_reference" type="ccmm:funding_reference"/>
   <xs:complexType name="geometry" sawsdl:modelReference="http://www.w3.org/ns/locn#Geometry">
     <xs:annotation>
-      <xs:documentation xml:lang="en"> Geometry - The Geometry class provides the means to
-                identify a location as a point, line, polygon, etc. expressed using coordinates in
-                some coordinate reference system. </xs:documentation>
+      <xs:documentation xml:lang="en">
+        Geometry - The Geometry class provides the means to identify a location as a point, line, polygon, etc. expressed using coordinates in some coordinate reference system.
+      </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
         <xs:annotation>
-          <xs:documentation xml:lang="en"> label - Label of geometry object.
-                    </xs:documentation>
+          <xs:documentation xml:lang="en">
+            label - Label of geometry object.
+          </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
-      <xs:element minOccurs="0" ref="gml:AbstractGeometry" sawsdl:modelReference="http://www.opengis.net/ont/geosparql#asGML">
+      <xs:element minOccurs="0" name="gml" type="gml:GeometryPropertyType" sawsdl:modelReference="http://www.opengis.net/ont/geosparql#asGML">
         <xs:annotation>
-          <xs:documentation xml:lang="en"> geography markup language literal -
-                        Representation of geometry object as GML Literal. </xs:documentation>
+          <xs:documentation xml:lang="en">
+            geography markup language literal - Representation of geometry object as GML Literal.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" name="wkt" sawsdl:modelReference="http://www.opengis.net/ont/geosparql#asWKT">
         <xs:annotation>
-          <xs:documentation xml:lang="en"> well known text literal - Representation of
-                        geometry object as WKT Literal. </xs:documentation>
+          <xs:documentation xml:lang="en">
+            well known text literal - Representation of geometry object as WKT Literal.
+          </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
-              <xs:attribute name="srsName" type="xs:anyURI" use="optional"/>
+              <xs:attribute name="srsName" type="xs:anyURI"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -632,110 +755,104 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="geometry" type="ccmm:geometry"/>
-  <xs:complexType name="location" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#Geolocation http://purl.org/dc/terms/Location">
+  <xs:complexType name="location" sawsdl:modelReference="http://purl.org/dc/terms/Location">
     <xs:annotation>
-      <xs:documentation xml:lang="en"> Location - Spatial region, named place or geometry
-                representation of a place related to the resource. Location is represented according
-                to the Open Formal Standard for Spatial Data. Locations are represented as a
-                reference to the named place, geographic region or specific geometry according to
-                the standardized geometry object representation. Every Location instance must have
-                at least one of the following attributes/relations: bbox, location name, geometry
-                and/or related object identifier. </xs:documentation>
+      <xs:documentation xml:lang="en">
+        Location - Spatial region or named place where the data was gathered or about which the data is focused.
+        Location is represented according to the Open Formal Standard for Spatial Data. Locations are represented as a reference to the named place, geographic region or specific geometry according to the standardized geometry object representation. 
+        Every Location instance must have at least one of the following attributes/relations: bbox, location name, geometry and/or related object identifier.
+      </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="bounding_box" type="gml:EnvelopeType" sawsdl:modelReference="http://www.w3.org/ns/dcat#bbox">
+      <xs:element minOccurs="0" name="bounding_box" sawsdl:modelReference="http://www.w3.org/ns/dcat#bbox">
         <xs:annotation>
-          <xs:documentation xml:lang="en"> bounding box - Bounding box of the location
-                        geometry. Typically defined by top-left and bottom-right corners.
-                    </xs:documentation>
+          <xs:documentation xml:lang="en">
+            bounding box - Bounding box of the location geometry.
+            Typically defined by top-left and bottom-right corners.
+          </xs:documentation>
         </xs:annotation>
+        <xs:complexType sawsdl:modelReference="http://www.opengis.net/ont/sf#Envelope">
+          <xs:sequence>
+            <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
+            <xs:element minOccurs="0" name="gml" type="gml:BoundingShapeType" sawsdl:modelReference="http://www.opengis.net/ont/geosparql#asGML"/>
+            <xs:element minOccurs="0" name="wkt" sawsdl:modelReference="http://www.opengis.net/ont/geosparql#asWKT">
+              <xs:complexType>
+                <xs:simpleContent>
+                  <xs:extension base="xs:string">
+                    <xs:attribute name="srsName" type="xs:anyURI"/>
+                  </xs:extension>
+                </xs:simpleContent>
+              </xs:complexType>
+            </xs:element>
+            <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
+          </xs:sequence>
+        </xs:complexType>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="name" type="xs:string" sawsdl:modelReference="http://purl.org/dc/terms/title">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
         <xs:annotation>
-          <xs:documentation xml:lang="en"> name - Name of the spatial location. Name of
-                        the place. Examples: Prague Castle, Tour d'Eiffel, Šumava National Park
-                    </xs:documentation>
+          <xs:documentation xml:lang="en">
+            label - A human-readable name for the location object.
+          </xs:documentation>
         </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
       </xs:element>
       <xs:element minOccurs="0" name="geometry" type="ccmm:geometry" sawsdl:modelReference="http://www.w3.org/ns/locn#geometry">
         <xs:annotation>
-          <xs:documentation xml:lang="en"> has geometry - The corresponding geometry for a
-                        resource. The range of this property allows for any type of geometry
-                        specification. E.g., the geometry could be encoded by a literal, as WKT
-                        (geosparql:wktLiteral), or represented by a class, as geosparql:Geometry (or
-                        any of its subclasses). </xs:documentation>
+          <xs:documentation xml:lang="en">
+            has geometry - The corresponding geometry for a resource.
+            The range of this property allows for any type of geometry specification. For example, the geometry could be encoded by a literal, as WKT (geosparql:wktLiteral), or represented by a class, as geosparql:Geometry (or any of its subclasses).
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="related_object" type="ccmm:related_resource" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasRelatedResource">
         <xs:annotation>
-          <xs:documentation xml:lang="en"> has related object - Relation to the spatial
-                        object. The relation is provided by the identifier of the related object. It
-                        shall be identifier of an existing spatial object in a registry, such as
-                        Place Named Authority List
-                        (http://publications.europa.eu/resource/authority/place), Register of
-                        Territorial Identification, Addresses and Real Estates or others.
-                    </xs:documentation>
+          <xs:documentation xml:lang="en">
+            has related object - Relation to the spatial object.
+            The relation is provided by the identifier of the related object. It shall be identifier of an existing spatial object in a registry, such as Place Named Authority List (http://publications.europa.eu/resource/authority/place), Register of Territorial Identification, Addresses and Real Estates or others.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="relation_type" type="ccmm:relation_type" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasType">
         <xs:annotation>
-          <xs:documentation xml:lang="en"> has location relation type - Relation of the
-                        location to the dataset. Use values from codelist
-                        https://vocabs.ccmm.cz/registry/codelist/LocationRelation/.
-                    </xs:documentation>
+          <xs:documentation xml:lang="en">
+            has location relation type - Relation of the location to the dataset.
+            Use values from the code list https://vocabs.ccmm.cz/registry/codelist/LocationRelation/.
+          </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="location" type="ccmm:location"/>
-  <xs:complexType name="provenance_statement" sawsdl:modelReference="http://purl.org/dc/terms/ProvenanceStatement">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">
-        Provenance Statement - Information about entities, activities, and people involved in producing a piece of data or thing.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">
-            label - Provenance state label.
-          </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:simpleContent>
-            <xs:extension base="xs:string">
-              <xs:attribute ref="xml:lang" use="required"/>
-            </xs:extension>
-          </xs:simpleContent>
-        </xs:complexType>
-      </xs:element>
-      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="provenance_statement" type="ccmm:provenance_statement"/>
   <xs:complexType name="resource_relation_type" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#Concept">
     <xs:annotation>
       <xs:documentation xml:lang="en">
         Resource relation type - Type of the relation between the dataset and given resource.
-        Use value from the codelist https://vocabs.ccmm.cz/registry/codelist/RelationType/.
+        Use value from the code list https://w3id.org/tib/datacite/vocab/relationType.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             label - Label of the relation type.
-            Use label of corresponding value from code list https://vocabs.ccmm.cz/registry/codelist/RelationType/.
+            Use a label of the corresponding value from the code list https://w3id.org/tib/datacite/vocab/relationType. This property may be repeated for parallel language versions of the label.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -744,81 +861,11 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="resource_relation_type" type="ccmm:resource_relation_type"/>
-  <xs:complexType name="terms_of_use" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#Rights">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">
-        Terms of use - Terms of use defines overall conditions and rights regarding access and usage  of dataset. 
-      </xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element name="access_rights" type="ccmm:access_rights" sawsdl:modelReference="http://purl.org/dc/terms/accessRights">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">
-            access rights - Information about the conditions to access the resource or an indication of its security status.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="license" type="ccmm:license_document" sawsdl:modelReference="http://purl.org/dc/terms/license">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">
-            has license - Reference to the legal document giving official permission to do something with the resource.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="description" sawsdl:modelReference="http://purl.org/dc/terms/description">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">
-            description - Descriptive text on details of rights and licensing.
-          </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:simpleContent>
-            <xs:extension base="xs:string">
-              <xs:attribute ref="xml:lang" use="required"/>
-            </xs:extension>
-          </xs:simpleContent>
-        </xs:complexType>
-      </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="contact_point" type="ccmm:agent" sawsdl:modelReference="http://www.w3.org/ns/dcat#contactPoint">
-        <xs:annotation>
-          <xs:documentation xml:lang="ar">
-            عنوان اتصال - تربط قائمة البيانات بعنوان اتصال موصف  باستخدام VCard
-          </xs:documentation>
-          <xs:documentation xml:lang="cs">
-            kontaktní bod - Relevantní kontaktní informace pro katalogizovaný zdroj. Doporučuje se použít slovník VCard.
-          </xs:documentation>
-          <xs:documentation xml:lang="da">
-            kontaktpunkt - Relevante kontaktoplysninger for den katalogiserede ressource. Anvendelse af vCard anbefales.
-          </xs:documentation>
-          <xs:documentation xml:lang="el">
-            σημείο επικοινωνίας - Συνδέει ένα σύνολο δεδομένων με ένα σχετικό σημείο επικοινωνίας, μέσω VCard.
-          </xs:documentation>
-          <xs:documentation xml:lang="en">
-            has contact point - Contact point for the further details about the terms of use.
-          </xs:documentation>
-          <xs:documentation xml:lang="es">
-            Punto de contacto - Información relevante de contacto para el recurso catalogado. Se recomienda el uso de vCard.
-          </xs:documentation>
-          <xs:documentation xml:lang="fr">
-            point de contact - Relie un jeu de données à une information de contact utile en utilisant VCard.
-          </xs:documentation>
-          <xs:documentation xml:lang="it">
-            punto di contatto - Informazioni di contatto rilevanti per la risorsa catalogata. Si raccomanda l'uso di vCard.
-          </xs:documentation>
-          <xs:documentation xml:lang="ja">
-            窓口 - データセットを、VCardを用いて提供されている適切な連絡先情報にリンクします。
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="terms_of_use" type="ccmm:terms_of_use"/>
   <xs:complexType name="checksum_algorithm" sawsdl:modelReference="http://spdx.org/rdf/terms#ChecksumAlgorithm">
     <xs:annotation>
       <xs:documentation xml:lang="en">
         Checksum algorithm - Algorithm used for Checksums.
+        Refers to an IRI,. e.g., instances of https://spdx.org/rdf/terms/#d4e2129 in SPDX Ontology.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
@@ -833,6 +880,7 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -841,25 +889,27 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="checksum_algorithm" type="ccmm:checksum_algorithm"/>
-  <xs:complexType name="subject" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#Subject">
+  <xs:complexType name="subject" sawsdl:modelReference="https://w3id.org/tib/datacite/class/Subject">
     <xs:annotation>
       <xs:documentation xml:lang="en">
-        Subject - Subject, keyword, classification code, or key phrase describing the resource.
-        Recommended approach is to use controlled list values, preferably in the form of IRI. 
+        Subject - Subject, classification code, or key phrase describing the resource.
+        Subjects are always concepts identified by IRI belonging to a vocabulary (subject scheme). For free-text keywords use a keyword.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element maxOccurs="unbounded" name="title" sawsdl:modelReference="http://purl.org/dc/terms/title">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            title - Title of the subject.
+            label - Subject label.
+            Use a label of the corresponding value from the used code list. At least one subject must be a value from FRASCATI FORD vocabulary. This property may be repeated for parallel language versions of the label.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -875,18 +925,19 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
-      <xs:element minOccurs="0" name="classification_code" type="xs:string" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#subjectClassificationCode">
+      <xs:element name="classification_code" type="xs:string" sawsdl:modelReference="https://w3id.org/tib/datacite/property/classificationCode">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             classification code - The classification code used for notation of the subject term in the subject scheme.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" name="subject_scheme" type="ccmm:subject_scheme" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#inSubjectScheme">
+      <xs:element name="subject_scheme" type="ccmm:subject_scheme" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#inSubjectScheme">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             in subject scheme - Belonging of the subject to the subject scheme.
@@ -901,22 +952,23 @@
     <xs:annotation>
       <xs:documentation xml:lang="en">
         Alternate title type - Type of alternate title.
-        Use value from codelist https://vocabs.ccmm.cz/registry/codelist/AlternateTitle/.
+        Use value from the code list https://w3id.org/tib/datacite/vocab/titleType.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             label - Alternate title type label.
-            Use label of a respective value from https://vocabs.ccmm.cz/registry/codelist/AlternateTitle/.
+            Use a label of the corresponding value from the code list https://w3id.org/tib/datacite/vocab/titleType. This property may be repeated for parallel language versions of the label.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -925,25 +977,56 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="alternate_title_type" type="ccmm:alternate_title_type"/>
-  <xs:complexType name="relation_type" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#Concept">
+  <xs:complexType name="attributed_agent_role_type" sawsdl:modelReference="http://www.w3.org/ns/dcat#Role">
     <xs:annotation>
       <xs:documentation xml:lang="en">
-        Location relation type - Relation of the dataset to the resource.
-        Use value from codelist https://vocabs.ccmm.cz/registry/codelist/LocationRelation/.
+        Attributed agent role type - Role of the agent in the attribution to the resource. 
+        Use value from code list https://vocabs.ccmm.cz/registry/codelist/AgentRole/.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            label - Label of location relation type.
+            label - Resource agent role type label.
+            Use a label of the corresponding value from the code list https://vocabs.ccmm.cz/registry/codelist/AgentRole/. This property may be repeated for parallel language versions of the label.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="attributed_agent_role_type" type="ccmm:attributed_agent_role_type"/>
+  <xs:complexType name="relation_type" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#Concept">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Location relation type - Relation of the dataset to the resource.
+        Use value from the code list https://vocabs.ccmm.cz/registry/codelist/LocationRelation/.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="iri" type="xs:anyURI"/>
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            label - Location relation type label.
+            Use label of a corresponding value from the code list https://vocabs.ccmm.cz/registry/codelist/LocationRelation/. This property may be repeated for parallel language versions of the label.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -960,10 +1043,11 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element name="title" type="xs:string" sawsdl:modelReference="http://purl.org/dc/terms/title">
+      <xs:element maxOccurs="unbounded" name="title" type="xs:string" sawsdl:modelReference="http://purl.org/dc/terms/title">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             title - A name given to the distribution.
+            This property can be repeated for parallel language versions of the description. The main title of a distribution is the one in the primary language of the dataset.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -976,8 +1060,8 @@
             dataadgangstjeneste - Et websted eller endpoint der giver adgang til en repræsentation af datasættet.
           </xs:documentation>
           <xs:documentation xml:lang="en">
-            has access service - A site or end-point that gives access to the distribution of the dataset.
-            Access service SHOULD be used to link to a description of Data service that can provide access to this distribution.
+            has access service - A data service that gives access to the distribution of the dataset.
+            Access service SHOULD be used to link to a description of Data service that provides access to this distribution.
           </xs:documentation>
           <xs:documentation xml:lang="es">
             servicio de acceso de datos - Un sitio o end-point que da acceso a la distribución de un conjunto de datos.
@@ -987,11 +1071,11 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="conforms_to_specification" type="ccmm:application_profile" sawsdl:modelReference="http://purl.org/dc/terms/conformsTo">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="conforms_to" type="ccmm:application_profile" sawsdl:modelReference="http://purl.org/dc/terms/conformsTo">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            conforms to specification - An established standard to which the distribution conforms.
-            This property SHOULD be used to indicate the profile or specification that this data service conforms to. This is (generally) a complementary concern to the service standard.
+            conforms to - An established schema to which the described Distribution conforms.
+            This property should be used to indicate the model, schema, ontology, view, or profile that this representation of a dataset conforms to. This is (generally) a complementary concern to the media type, service standard, or format.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -999,6 +1083,24 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has documentation - A page or document about this Distribution.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="rights" type="ccmm:access_rights" sawsdl:modelReference="http://purl.org/dc/terms/rights">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            has rights - A statement that specifies rights associated with the Distribution.
+            Use IRI identifier from the register http://purl.org/coar/access_right/. Recommended mapping of values from COAR to https://semiceu.github.io/DCAT-AP/drafts/latest/#properties-with-a-recommended-use-of-controlled-vocabularies is:
+            - embargoed access, metadata only access mapped to :NON_PUBLIC,
+            - open access mapped to :PUBLIC,
+            - restricted access mapped to :RESTRICTED.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="licence" type="ccmm:licence_document" sawsdl:modelReference="http://purl.org/dc/terms/license">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            has licence - A licence under which the Distribution is made available.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1013,12 +1115,45 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
       <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
     </xs:sequence>
+    <xs:attribute use="required" name="access_url" type="xs:anyURI" sawsdl:modelReference="http://www.w3.org/ns/dcat#accessURL">
+      <xs:annotation>
+        <xs:documentation xml:lang="ar">
+          رابط وصول - أي رابط يتيح الوصول إلى البيانات. إذا كان الرابط هو ربط مباشر لملف يمكن تحميله استخدم الخاصية downloadURL
+        </xs:documentation>
+        <xs:documentation xml:lang="cs">
+          přístupová adresa - URL zdroje, přes které je přístupná distribuce datové sady. Příkladem může být vstupní stránka, RSS kanál či SPARQL endpoint. Použijte ve všech případech kromě URL souboru ke stažení, pro které je lepší použít dcat:downloadURL.
+        </xs:documentation>
+        <xs:documentation xml:lang="da">
+          adgangsadresse - En URL for en ressource som giver adgang til en repræsentation af datsættet. Fx destinationsside, feed, SPARQL-endpoint. Anvendes i alle sammenhænge undtagen til angivelse af et simpelt download link hvor anvendelse af egenskaben downloadURL foretrækkes.
+        </xs:documentation>
+        <xs:documentation xml:lang="el">
+          URL πρόσβασης - Μπορεί να είναι οποιουδήποτε είδους URL που δίνει πρόσβαση στη διανομή ενός συνόλου δεδομένων. Π.χ. ιστοσελίδα αρχικής πρόσβασης, μεταφόρτωση, feed URL, σημείο διάθεσης SPARQL. Να χρησιμοποιείται όταν ο κατάλογος δεν περιέχει πληροφορίες εαν πρόκειται ή όχι για μεταφορτώσιμο αρχείο.
+        </xs:documentation>
+        <xs:documentation xml:lang="en">
+          access URL - A URL that gives access to a Distribution of the Dataset.
+          The resource at the access URL may contain information about how to get the Dataset. It shall be the web page (not a document file).
+        </xs:documentation>
+        <xs:documentation xml:lang="es">
+          URL de acceso - Puede ser cualquier tipo de URL que de acceso a una distribución del conjunto de datos, e.g., página de destino, descarga, URL feed, punto de acceso SPARQL. Esta propriedad se debe usar cuando su catálogo de datos no tiene información sobre donde está o cuando no se puede descargar.
+        </xs:documentation>
+        <xs:documentation xml:lang="fr">
+          URL d'accès - Ceci peut être tout type d'URL qui donne accès à une distribution du jeu de données. Par exemple, un lien à une page HTML contenant un lien au jeu de données, un Flux RSS, un point d'accès SPARQL. Utilisez le lorsque votre catalogue ne contient pas d'information sur quoi il est ou quand ce n'est pas téléchargeable.
+        </xs:documentation>
+        <xs:documentation xml:lang="it">
+          indirizzo di accesso - Un URL di una risorsa che consente di accedere a una distribuzione del set di dati. Per esempio, pagina di destinazione, feed, endpoint SPARQL. Da utilizzare per tutti i casi, tranne  quando  si tratta di un semplice link per il download nel qual caso è preferito downloadURL.
+        </xs:documentation>
+        <xs:documentation xml:lang="ja">
+          アクセスURL - データセットの配信にアクセス権を与えるランディング・ページ、フィード、SPARQLエンドポイント、その他の種類の資源。
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:complexType>
   <xs:element name="distribution-data-service" type="ccmm:distribution_data_service"/>
   <xs:complexType name="agent">
@@ -1062,36 +1197,126 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://purl.org/dc/terms/title">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            label - Human readable name of the repository.
+            label - A human-readable name of the repository.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" name="description" sawsdl:modelReference="http://purl.org/dc/terms/description">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            description - A free-text account of the Catalogue.
+            This property can be repeated for parallel language versions of the description.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" name="qualified_attribution" type="ccmm:resource_attribution" sawsdl:modelReference="http://www.w3.org/ns/prov#qualifiedAttribution">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            qualified attribution - A link to a description of a relationship between repository and agent with the specification of the role of agent in this relationship.
+            The relationship shall contain at least one agent with the role "Publisher" from code list https://vocabs.ccmm.cz/registry/codelist/AgentRole/.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="record" type="xs:anyURI" sawsdl:modelReference="http://www.w3.org/ns/dcat#record">
+        <xs:annotation>
+          <xs:documentation xml:lang="ar">
+            سجل - تربط الفهرس بسجل ضمنه
+          </xs:documentation>
+          <xs:documentation xml:lang="cs">
+            záznam - Záznam popisující registraci jedné datové sady či datové služby jakožto součásti katalogu.
+          </xs:documentation>
+          <xs:documentation xml:lang="da">
+            post - En post der beskriver registreringen af et enkelt datasæt eller en datatjeneste som er opført i kataloget.
+          </xs:documentation>
+          <xs:documentation xml:lang="el">
+            καταγραφή - Συνδέει έναν κατάλογο με τις καταγραφές του.
+          </xs:documentation>
+          <xs:documentation xml:lang="en">
+            record - A Catalogue Record that is part of the Catalogue.
+          </xs:documentation>
+          <xs:documentation xml:lang="es">
+            registro - Describe la registración de un conjunto de datos o un servicio de datos en el catálogo.
+          </xs:documentation>
+          <xs:documentation xml:lang="fr">
+            registre - Relie un catalogue à ses registres.
+          </xs:documentation>
+          <xs:documentation xml:lang="it">
+            record - Un record che descrive la registrazione di un singolo set di dati o di un servizio dati che fa parte del catalogo.
+          </xs:documentation>
+          <xs:documentation xml:lang="ja">
+            カタログ・レコード - カタログの一部であるカタログ・レコード。
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="dataset" type="xs:anyURI" sawsdl:modelReference="http://www.w3.org/ns/dcat#dataset">
+        <xs:annotation>
+          <xs:documentation xml:lang="ar">
+            قائمة بيانات - تربط الفهرس بقائمة بيانات ضمنه
+          </xs:documentation>
+          <xs:documentation xml:lang="cs">
+            datová sada - Kolekce dat, která je katalogizována v katalogu.
+          </xs:documentation>
+          <xs:documentation xml:lang="da">
+            datasæt - En samling af data som er opført i kataloget.
+          </xs:documentation>
+          <xs:documentation xml:lang="el">
+            σύνολο δεδομένων - Συνδέει έναν κατάλογο με ένα σύνολο δεδομένων το οποίο ανήκει στον εν λόγω κατάλογο.
+          </xs:documentation>
+          <xs:documentation xml:lang="en">
+            dataset - A Dataset that is part of the Catalogue.
+            As empty Catalogues are usually indications of problems, this property should be combined with the property service to implement an empty Catalogue check.
+          </xs:documentation>
+          <xs:documentation xml:lang="es">
+            conjunto de datos - Un conjunto de datos que se lista en el catálogo.
+          </xs:documentation>
+          <xs:documentation xml:lang="fr">
+            jeu de données - Relie un catalogue à un jeu de données faisant partie de ce catalogue.
+          </xs:documentation>
+          <xs:documentation xml:lang="it">
+            dataset - Una raccolta di dati che è elencata nel catalogo.
+          </xs:documentation>
+          <xs:documentation xml:lang="ja">
+            データセット - カタログの一部であるデータセット。
+          </xs:documentation>
+        </xs:annotation>
       </xs:element>
       <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="repository" type="ccmm:repository"/>
-  <xs:complexType name="organization" sawsdl:modelReference="http://www.w3.org/ns/prov#Organization http://xmlns.com/foaf/0.1/Agent">
+  <xs:complexType name="organization" sawsdl:modelReference="http://www.w3.org/ns/org#Organization">
     <xs:annotation>
       <xs:documentation xml:lang="en">
-        Organization - Represents a collection of people organized together into a community or other social, commercial or political structure. The group has some common purpose or reason for existence which goes beyond the set of people belonging to it and can act as an Agent. Organizations are often decomposable into hierarchical structures. 
+        Organization - Represents a collection of people organized together into a community or other social, commercial or political structure. The group has some common purpose or reason for existence which goes beyond the set of people belonging to it and can act as an Agent. Organizations are often decomposable into hierarchical structures.
+        If the Agent is an organisation, the use of the Organization Ontology is recommended.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="identifier" type="ccmm:identifier" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasIdentifier">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="identifier" type="ccmm:identifier" sawsdl:modelReference="http://www.w3.org/ns/adms#identifier">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            has identifier - has identifier
+            has identifier - Identifier of an Agent.
+            The recommended identifier scheme for an organization is https://ror.org; the recommended identifier scheme for a person is https://orcid.org. Provide other identifiers if available.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1099,20 +1324,21 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             name - Name of the agent.
-            It is used for the official name of the agent. For Persons it is combination of first and family names. Recommended format is "family names, first names".
+            The official name of an agent. For Person, it is a combination of the first and family names. The recommended format is "family name(s), first name(s)", e.g., "Smith, John".
           </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="alternate_name" sawsdl:modelReference="http://www.w3.org/2006/vcard/ns#organization-name">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            alternate name - To specify the organizational name associated with the object
+            alternate name - An alternate organizational name associated with the object.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -1168,7 +1394,7 @@
       </xs:documentation>
       <xs:documentation xml:lang="en">
         Metadata Record - Description of the metadata record of the dataset. 
-        In case metadata is harvested from external catalogue, metadata record IRI shall be the same as IRI of the metadata record in original repository.
+        In case metadata is harvested from an external catalogue, the metadata record IRI shall be the same as the IRI of the metadata record in the original repository.
       </xs:documentation>
       <xs:documentation xml:lang="es">
         Registro del catálogo - Un registro en un catálogo de datos que describe un solo conjunto de datos o un servicio de datos.
@@ -1185,6 +1411,21 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="title" sawsdl:modelReference="http://purl.org/dc/terms/title">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            title - A name given to the metadata record.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="language" type="ccmm:language_system" sawsdl:modelReference="http://purl.org/dc/terms/language">
         <xs:annotation>
           <xs:documentation xml:lang="en">
@@ -1193,31 +1434,30 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element maxOccurs="unbounded" name="qualified_relation" type="ccmm:resource_to_agent_relationship" sawsdl:modelReference="http://www.w3.org/ns/dcat#qualifiedRelation">
+      <xs:element maxOccurs="unbounded" name="qualified_attribution" type="ccmm:resource_attribution" sawsdl:modelReference="http://www.w3.org/ns/prov#qualifiedAttribution">
         <xs:annotation>
           <xs:documentation xml:lang="cs">
-            kvalifikovaný vztah - Odkaz na popis vztahu s jiným zdrojem.
+            Odkaz na popis vztahu s jiným zdrojem.
           </xs:documentation>
           <xs:documentation xml:lang="da">
-            Kvalificeret relation - Reference til en beskrivelse af en relation til en anden ressource.
+            Reference til en beskrivelse af en relation til en anden ressource.
           </xs:documentation>
           <xs:documentation xml:lang="en">
-            qualified relation - Link to a description of a relationship between metadata record and agent with the specification of the role of agent in this relationship.
-            Relationship shall contain at least one agent with role "Data Manager" from codelist https://vocabs.ccmm.cz/registry/codelist/AgentRole/.
+            qualified attribution - A link to a description of a relationship between metadata record and agent with the specification of the role of agent in this relationship.
+            The relationship shall contain at least one agent with the role "Data Manager" from the code list https://vocabs.ccmm.cz/registry/codelist/AgentRole/.
           </xs:documentation>
           <xs:documentation xml:lang="es">
-            relación calificada - Enlace a una descripción de la relación con otro recurso.
+            Enlace a una descripción de la relación con otro recurso.
           </xs:documentation>
           <xs:documentation xml:lang="it">
-            relazione qualificata - Link a una descrizione di una relazione con un'altra risorsa.
+            Link a una descrizione di una relazione con un'altra risorsa.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="date_updated" type="xs:date" sawsdl:modelReference="http://purl.org/dc/terms/modified">
+      <xs:element name="date_updated" type="xs:date" sawsdl:modelReference="http://purl.org/dc/terms/modified">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            date updated - Date on which the resource was changed.
-            The date on which the metadata record was changed or modified.
+            date updated - The most recent date on which the resource was changed.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1231,8 +1471,8 @@
       <xs:element maxOccurs="unbounded" name="conforms_to_standard" type="ccmm:application_profile" sawsdl:modelReference="http://purl.org/dc/terms/conformsTo">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            conforms to standard - An established standard to which the metadata record conforms.
-            This property SHOULD be used to indicate the standard or profile that was used to describe cataloged resource content.
+            conforms to - An established standard to which the metadata record conforms.
+            This property should be used to indicate the metadata model, schema, ontology, or profile that the metadata record conforms to.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1241,7 +1481,7 @@
           <xs:documentation xml:lang="en">
             has original repository - Link to the repository in which the metadata were originally stored and curated.
             Original repository is a repository where the original metadata was harvested from or where it was created and/or published. There is always exactly one original repository. 
-            If metadata record is harvested form other repository, make sure to include the first repository from which it was harvested.
+            If a metadata record is harvested from another repository, make sure to include the first repository from which it was harvested.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1268,6 +1508,7 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -1276,92 +1517,27 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="file" type="ccmm:file"/>
-  <xs:complexType name="license_document" sawsdl:modelReference="http://purl.org/dc/terms/LicenseDocument">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">
-        License Document - A legal document giving official permission to do something with a resource.
-        A legal document giving official permission to do something with a resource.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">
-            label - Label of the license document.
-          </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:simpleContent>
-            <xs:extension base="xs:string">
-              <xs:attribute ref="xml:lang" use="required"/>
-            </xs:extension>
-          </xs:simpleContent>
-        </xs:complexType>
-      </xs:element>
-      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="license_document" type="ccmm:license_document"/>
-  <xs:complexType name="resource_to_agent_relationship" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#ResourceToAgentRelationship">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">
-        Resource to agent relationship - An association class for attaching additional information to a relationship between Resource and Agent.
-        Use to characterize a relationship between resources and agents, where the nature of the relationship is known but is not adequately characterized by the standard DCTERMS properties (dcterms:hasPart, dcterms:isPartOf, dcterms:conformsTo, dcterms:isFormatOf, dcterms:hasFormat, dcterms:isVersionOf, dcterms:hasVersion, dcterms:replaces, dcterms:isReplacedBy, dcterms:references, dcterms:isReferencedBy, dcterms:requires, dcterms:isRequiredBy) or PROV-O properties (prov:wasDerivedFrom, prov:wasInfluencedBy, prov:wasQuotedFrom, prov:wasRevisionOf, prov:hadPrimarySource, prov:alternateOf, prov:specializationOf). Roles of the agent in the relation are specified using had role relation.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element name="relation" type="ccmm:agent" sawsdl:modelReference="http://purl.org/dc/terms/relation">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">
-            has related agent - Specifies the agent an a given role in the relationship with the resource.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="role" type="ccmm:resource_agent_role_type" sawsdl:modelReference="http://www.w3.org/ns/dcat#hadRole">
-        <xs:annotation>
-          <xs:documentation xml:lang="cs">
-            sehraná role - Funkce entity či agenta ve vztahu k jiné entitě či zdroji.
-          </xs:documentation>
-          <xs:documentation xml:lang="da">
-            havde rolle - Den funktion en entitet eller aktør har i forhold til en anden ressource.
-          </xs:documentation>
-          <xs:documentation xml:lang="en">
-            had role - The function of an entity or agent with respect to another entity or resource.
-            May be used in a qualified-attribution to specify the role of an Agent with respect to an Entity. It is recommended that the value be taken from a controlled vocabulary of agent roles.
-          </xs:documentation>
-          <xs:documentation xml:lang="es">
-            La función de una entidad o agente con respecto a otra entidad o recurso.
-          </xs:documentation>
-          <xs:documentation xml:lang="it">
-            tiene rol - La funzione di un'entità o un agente rispetto ad un'altra entità o risorsa.
-          </xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="resource_to_agent_relationship" type="ccmm:resource_to_agent_relationship"/>
   <xs:complexType name="media_type" sawsdl:modelReference="http://purl.org/dc/terms/MediaType">
     <xs:annotation>
       <xs:documentation xml:lang="en">
-        Media Type - A file format.
-        Use IRI value from registry https://www.iana.org/assignments/media-types/media-types.xhtml.
+        Media type - A file format or physical medium.
+        Use media type in a form of IRI from registry https://www.iana.org/assignments/media-types/media-types.xhtml.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             label - Media type label.
+            Use a label of the corresponding value from the used code list (usually IANA: https://www.iana.org/assignments/media-types/media-types.xhtml). This property may be repeated for parallel language versions of the label.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -1386,17 +1562,18 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             label - Language label
-            Use language label and/or its 3-letter code from http://publications.europa.eu/resource/authority/language/.
+            Use a language label code from the code list http://publications.europa.eu/resource/authority/language/. 
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -1405,10 +1582,83 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="language_system" type="ccmm:language_system"/>
+  <xs:complexType name="provenance_activity" sawsdl:modelReference="http://www.w3.org/ns/prov#Activity">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Provenance activity - An activity is something that occurs over a period of time and acts upon or with the origin or life cycle of dataset; it may include consuming, processing, transforming, modifying, relocating, using, or generating entities.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            label - A human-readable name for the activity.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
+    </xs:sequence>
+    <xs:attribute name="common_provenance_model_json_representation" type="xs:anyURI" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasCPMJsonRepresentation">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          has common provenance model json representation - Link to the JSON representation of provenance activity according to the Common provenance model specified in ISO 23494-2 standard.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ro-crate_json_representation" type="xs:anyURI" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasRo-crateJsonRepresentation">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          has RO-Crate JSON representation - Link to the JSON-LD representation of provenance activity according to the RO-Crate specification.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:element name="provenance_activity" type="ccmm:provenance_activity"/>
+  <xs:complexType name="licence_document" sawsdl:modelReference="http://purl.org/dc/terms/LicenseDocument">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Licence document - A legal document giving official permission to do something with a resource and describing conditions under which it may be done.
+        The IRI shall point to the document with the licence text.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="title" sawsdl:modelReference="http://purl.org/dc/terms/title">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            title - Title of the licence document.
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="licence_document" type="ccmm:licence_document"/>
   <xs:complexType name="identifier" sawsdl:modelReference="http://www.w3.org/ns/adms#Identifier">
     <xs:annotation>
       <xs:documentation xml:lang="en">
         Identifier - Unique and resolvable identifier containing the notation and identifier scheme in the form of URI.
+        An identifier in a particular context, consisting of the content string that is the identifier and the context in a form of base IRI.
+        - an optional identifier for the identifier scheme;
+        - an optional identifier for the version of the identifier scheme;
+        - an optional identifier for the agency that manages the identifier scheme.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
@@ -1416,7 +1666,7 @@
       <xs:element name="value" type="xs:string" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#notation">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            value - Value of the identifer within the given identifier scheme.
+            value - Value of the identifier within the given identifier scheme.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1443,22 +1693,23 @@
     <xs:annotation>
       <xs:documentation xml:lang="en">
         Format - Format of downloadable file.
-        Use IRI identifier from the register http://publications.europa.eu/resource/dataset/file-type. Human readable codelist representation is here: https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/file-type.
+        Use IRI identifier from the register http://publications.europa.eu/resource/dataset/file-type. Human readable code list representation is here: https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/file-type.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             label - Label of format value.
-            Use a label of a codelist value from http://publications.europa.eu/resource/dataset/file-type.
+            Use a label of the corresponding value from the code list http://publications.europa.eu/resource/dataset/file-type. This property may be repeated for parallel language versions of the label.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -1470,17 +1721,17 @@
   <xs:complexType name="related_resource" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#Resource">
     <xs:annotation>
       <xs:documentation xml:lang="en">
-        Related resource - Resource represents any resource, physical or digital, that is related to the described dataset. 
-        Class is used for description of the resource together with the type of relation, for which is used value from codelist https://vocabs.ccmm.cz/registry/codelist/RelationType/. Distributions of the datasets SHALL NOT be modeled as related resource, but as a distribution. Use qualified resource property to link to the dataset class. 
-        Examples of resources: other related dataset, used methodology, instrument used for measurement, conference or conference paper etc...
+        Related resource - Resource represents any resource, physical or digital, that is related to the described dataset.
+        The class is used for description of the resource together with the type of relation, for which is used value from the code list https://w3id.org/tib/datacite/vocab/relationType. Distributions of the datasets SHALL NOT be modeled as related resource, but as a distribution. Examples of resources: other related dataset, used methodology, instrument used for measurement, conference or conference paper, etc.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="identifier" type="ccmm:identifier" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasIdentifier">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="identifier" type="ccmm:identifier" sawsdl:modelReference="http://www.w3.org/ns/adms#identifier">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            has identifier - has identifier
+            has identifier - A secondary identifier of the Dataset.
+            List all available identifiers referring to the same resource (e.g., DOI, Handle, etc.).
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1494,7 +1745,7 @@
       <xs:element minOccurs="0" maxOccurs="unbounded" name="alternate_title" type="ccmm:alternate_title" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasAlternateTitle">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            has alternate title
+            has alternate title - References to the alternate title of the resource.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1502,15 +1753,15 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             resource URL - Human readable resolvable URL representing the resource.
-            Resource URL represents human readable resolvable representation of the resource. Same url must be aslo in c:iri.
+            The resource URL is a resolvable and human-readable representation of the resource, i.e. web page. The same URL must be also recorded as c:iri.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="qualified_relation" type="ccmm:resource_to_agent_relationship" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#qualifiedRelation">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="qualified_attribution" type="ccmm:resource_attribution" sawsdl:modelReference="http://www.w3.org/ns/prov#qualifiedAttribution">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            qualified relation
-            Link to a description of a relationship between resource and an agent with the specification of the role of agent in this relationship.
+            qualified attribution - A link to a description of a relationship between resource and an agent with the specification of the role of agent in this relationship.
+            If the resource is Dataset, it has to have at least one qualified attribution relation with the role Creator, also, it is recommended to have other qualified relation to the organization with the role Publisher.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1533,7 +1784,7 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has resource relation type - Relation to the relation type between dataset and resource.
-            Use value from https://vocabs.ccmm.cz/registry/codelist/RelationType/.
+            Use value from the code list https://w3id.org/tib/datacite/vocab/relationType.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1549,14 +1800,15 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element name="title" type="xs:string" sawsdl:modelReference="http://purl.org/dc/terms/title">
+      <xs:element maxOccurs="unbounded" name="title" type="xs:string" sawsdl:modelReference="http://purl.org/dc/terms/title">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             title - A name given to the distribution.
+            This property can be repeated for parallel language versions of the description. The main title of a distribution is the one in the primary language of the dataset.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element maxOccurs="unbounded" name="access_url" type="ccmm:file" sawsdl:modelReference="http://www.w3.org/ns/dcat#accessURL">
+      <xs:element maxOccurs="unbounded" name="access_url" type="xs:anyURI" sawsdl:modelReference="http://www.w3.org/ns/dcat#accessURL">
         <xs:annotation>
           <xs:documentation xml:lang="ar">
             رابط وصول - أي رابط يتيح الوصول إلى البيانات. إذا كان الرابط هو ربط مباشر لملف يمكن تحميله استخدم الخاصية downloadURL
@@ -1572,7 +1824,7 @@
           </xs:documentation>
           <xs:documentation xml:lang="en">
             access URL - A URL that gives access to a Distribution of the Dataset.
-            The resource at the access URL contains information about how to get the Dataset. It shall be the web page (not a document file).
+            The resource at the access URL may contain information about how to get the Dataset. It shall be the web page (not a document file).
           </xs:documentation>
           <xs:documentation xml:lang="es">
             URL de acceso - Puede ser cualquier tipo de URL que de acceso a una distribución del conjunto de datos, e.g., página de destino, descarga, URL feed, punto de acceso SPARQL. Esta propriedad se debe usar cuando su catálogo de datos no tiene información sobre donde está o cuando no se puede descargar.
@@ -1591,40 +1843,40 @@
       <xs:element minOccurs="0" maxOccurs="unbounded" name="download_url" type="ccmm:file" sawsdl:modelReference="http://www.w3.org/ns/dcat#downloadURL">
         <xs:annotation>
           <xs:documentation xml:lang="ar">
-            رابط تحميل - رابط مباشر لملف يمكن تحميله. نوع الملف يتم توصيفه باستخدام الخاصية dcterms:format dcat:mediaType 
+            رابط مباشر لملف يمكن تحميله. نوع الملف يتم توصيفه باستخدام الخاصية dcterms:format dcat:mediaType 
           </xs:documentation>
           <xs:documentation xml:lang="cs">
-            URL souboru ke stažení - URL souboru ke stažení v daném formátu, například CSV nebo RDF soubor. Formát je popsán vlastností distribuce dcterms:format a/nebo dcat:mediaType.
+            URL souboru ke stažení v daném formátu, například CSV nebo RDF soubor. Formát je popsán vlastností distribuce dcterms:format a/nebo dcat:mediaType.
           </xs:documentation>
           <xs:documentation xml:lang="da">
-            downloadURL - URL til fil der kan downloades i et bestemt format. Fx en CSV-fil eller en RDF-fil. Formatet for distributionen angives ved hjælp af egenskaberne dcterms:format og/eller dcat:mediaType.
+            URL til fil der kan downloades i et bestemt format. Fx en CSV-fil eller en RDF-fil. Formatet for distributionen angives ved hjælp af egenskaberne dcterms:format og/eller dcat:mediaType.
           </xs:documentation>
           <xs:documentation xml:lang="el">
-            URL μεταφόρτωσης - Είναι ένας σύνδεσμος άμεσης μεταφόρτωσης ενός αρχείου σε μια δεδομένη μορφή. Π.χ. ένα αρχείο CSV ή RDF. Η μορφη αρχείου περιγράφεται από τις ιδιότητες dcterms:format ή/και dcat:mediaType της διανομής.
+            Είναι ένας σύνδεσμος άμεσης μεταφόρτωσης ενός αρχείου σε μια δεδομένη μορφή. Π.χ. ένα αρχείο CSV ή RDF. Η μορφη αρχείου περιγράφεται από τις ιδιότητες dcterms:format ή/και dcat:mediaType της διανομής.
           </xs:documentation>
           <xs:documentation xml:lang="en">
             download URL - A URL that is a direct link to a downloadable file in a given format.
-            Download URL SHOULD be used for the URL at which this distribution is available directly, typically through a HTTP Get request.
+            A download URL SHOULD BE used for the URL at which this distribution is available directly, typically through an HTTP Get request.
           </xs:documentation>
           <xs:documentation xml:lang="es">
-            URL de descarga - La URL de un archivo descargable en el formato dato. Por ejemplo, archivo CSV o archivo RDF. El formato se describe con las propiedades de la distribución dcterms:format y/o dcat:mediaType.
+            La URL de un archivo descargable en el formato dato. Por ejemplo, archivo CSV o archivo RDF. El formato se describe con las propiedades de la distribución dcterms:format y/o dcat:mediaType.
           </xs:documentation>
           <xs:documentation xml:lang="fr">
-            URL de téléchargement - Ceci est un lien direct à un fichier téléchargeable en un format donnée. Exple fichier CSV ou RDF. Le format est décrit par les propriétés de distribution dcterms:format et/ou dcat:mediaType.
+            Ceci est un lien direct à un fichier téléchargeable en un format donnée. Exple fichier CSV ou RDF. Le format est décrit par les propriétés de distribution dcterms:format et/ou dcat:mediaType.
           </xs:documentation>
           <xs:documentation xml:lang="it">
-            URL di scarico - Questo è un link diretto al file scaricabile in un dato formato. E.g. un file CSV o un file RDF. Il formato è descritto dal dcterms:format e/o dal dcat:mediaType della distribuzione.
+            Questo è un link diretto al file scaricabile in un dato formato. E.g. un file CSV o un file RDF. Il formato è descritto dal dcterms:format e/o dal dcat:mediaType della distribuzione.
           </xs:documentation>
           <xs:documentation xml:lang="ja">
-            ダウンロードURL - dcat:downloadURLはdcat:accessURLの特定の形式です。しかし、DCATプロファイルが非ダウンロード・ロケーションに対してのみaccessURLを用いる場合には、より強い分離を課すことを望む可能性があるため、この含意を強化しないように、DCATは、dcat:downloadURLをdcat:accessURLのサブプロパティーであると定義しません。
+            dcat:downloadURLはdcat:accessURLの特定の形式です。しかし、DCATプロファイルが非ダウンロード・ロケーションに対してのみaccessURLを用いる場合には、より強い分離を課すことを望む可能性があるため、この含意を強化しないように、DCATは、dcat:downloadURLをdcat:accessURLのサブプロパティーであると定義しません。
           </xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="conforms_to_schema" type="ccmm:application_profile" sawsdl:modelReference="http://purl.org/dc/terms/conformsTo">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="conforms_to" type="ccmm:application_profile" sawsdl:modelReference="http://purl.org/dc/terms/conformsTo">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            conforms to schema - An established standard to which the distribution conforms.
-            This property SHOULD be used to indicate the model, schema, ontology, view or profile that this representation of a dataset conforms to. This is (generally) a complementary concern to the media-type or format.
+            conforms to - An established schema to which the described Distribution conforms.
+            This property should be used to indicate the model, schema, ontology, view, or profile that this representation of a dataset conforms to. This is (generally) a complementary concern to the media type, service standard, or format.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1632,38 +1884,43 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has format - The file format of the distribution.
+            This property refers to the instance of format represented by IRI identifier from the register http://publications.europa.eu/resource/dataset/file-type. Human readable code list representation is here: https://op.europa.eu/en/web/eu-vocabularies/concept-scheme/-/resource?uri=http://publications.europa.eu/resource/authority/file-type.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element minOccurs="0" name="media_type" type="ccmm:media_type" sawsdl:modelReference="http://www.w3.org/ns/dcat#mediaType">
         <xs:annotation>
-          <xs:documentation xml:lang="ar">
-            نوع الميديا - يجب استخدام هذه الخاصية إذا كان نوع الملف معرف ضمن IANA
+          <xs:documentation xml:lang="en">
+            has media type - The media type of the Distribution as defined in the official register of media types managed by IANA.
+            This property SHOULD be used when the media type of the distribution is defined in IANA (using value from https://www.iana.org/assignments/media-types/media-types.xhtml), otherwise Format MAY be used with values from Publication Office of the EU File type code list http://publications.europa.eu/resource/dataset/file-type.
           </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="packaging_format" type="ccmm:media_type" sawsdl:modelReference="http://www.w3.org/ns/dcat#packageFormat">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            has packaging format - The format of the file in which one or more data files are grouped together, e.g., to enable a set of related files to be downloaded together.
+            This property SHOULD be used when the files in the distribution are packaged, e.g., in a TAR file, a ZIP file, a Frictionless Data Package or a Bagit file. If available, record the media type as a value from the IANA registry (using value from https://www.iana.org/assignments/media-types/media-types.xhtml).
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="compression_format" type="ccmm:media_type" sawsdl:modelReference="http://www.w3.org/ns/dcat#compressFormat">
+        <xs:annotation>
           <xs:documentation xml:lang="cs">
-            typ média - Typ média distribuce definovaný v IANA.
+            Formát komprese souboru, ve kterém jsou data poskytována v komprimované podobě, např. ke snížení velikosti souboru ke stažení.
           </xs:documentation>
           <xs:documentation xml:lang="da">
-            medietype - Medietypen for distributionen som den er defineret af IANA.
-          </xs:documentation>
-          <xs:documentation xml:lang="el">
-            τύπος μέσου - Η ιδιότητα αυτή ΘΑ ΠΡΕΠΕΙ να χρησιμοποιείται όταν ο τύπος μέσου μίας διανομής είναι ορισμένος στο IANA, αλλιώς η ιδιότητα dcterms:format ΔΥΝΑΤΑΙ να χρησιμοποιηθεί με διαφορετικές τιμές.
+            Kompressionsformatet for distributionen som indeholder data i et komprimeret format, fx for at reducere størrelsen af downloadfilen.
           </xs:documentation>
           <xs:documentation xml:lang="en">
-            media type - The media type of the distribution as defined by IANA
-            This property SHOULD be used when the media type of the distribution is defined in IANA (using value from https://www.iana.org/assignments/media-types/media-types.xhtml), otherwise Format MAY be used with values from Publication Office of the EU File type codelist http://publications.europa.eu/resource/dataset/file-type.
+            has compression format - The format of the file in which the data is contained in a compressed form, e.g., to reduce the size of the downloadable file.
+            It SHOULD be expressed using a media type as defined in the official register of media types managed by IANA (using value from https://www.iana.org/assignments/media-types/media-types.xhtml).
           </xs:documentation>
           <xs:documentation xml:lang="es">
-            tipo de media - Esta propiedad debe ser usada cuando está definido el tipo de media de la distribución en IANA, de otra manera dcterms:format puede ser utilizado con diferentes valores
-          </xs:documentation>
-          <xs:documentation xml:lang="fr">
-            type de média - Cette propriété doit être utilisée quand c'est définit le type de média de la distribution en IANA, sinon dcterms:format DOIT être utilisé avec différentes valeurs.
+            El formato de la distribución en el que los datos están en forma comprimida, e.g. para reducir el tamaño del archivo a bajar.
           </xs:documentation>
           <xs:documentation xml:lang="it">
-            tipo di media - Il tipo di media della distribuzione come definito da IANA
-          </xs:documentation>
-          <xs:documentation xml:lang="ja">
-            メディア・タイプ - このプロパティーは、配信のメディア・タイプがIANAで定義されているときに使用すべきで（SHOULD）、そうでない場合には、dcterms:formatを様々な値と共に使用できます（MAY）。
+            Il formato di compressione della distribuzione nel quale i dati sono in forma compressa, ad es. per ridurre le dimensioni del file da scaricare.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1682,6 +1939,40 @@
           </xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element minOccurs="0" name="rights" type="ccmm:access_rights" sawsdl:modelReference="http://purl.org/dc/terms/rights">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            has rights - A statement that specifies rights associated with the Distribution.
+            Use IRI identifier from the register http://purl.org/coar/access_right/. Recommended mapping of values from COAR to https://semiceu.github.io/DCAT-AP/drafts/latest/#properties-with-a-recommended-use-of-controlled-vocabularies is:
+            - embargoed access, metadata only access mapped to :NON_PUBLIC,
+            - open access mapped to :PUBLIC,
+            - restricted access mapped to :RESTRICTED.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="licence" type="ccmm:licence_document" sawsdl:modelReference="http://purl.org/dc/terms/license">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            has licence - A licence under which the Distribution is made available.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="description" sawsdl:modelReference="http://purl.org/dc/terms/description">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            description - A free-text account of the Distribution.
+            This property can be repeated for parallel language versions of the description. 
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:simpleContent>
+            <xs:extension base="xs:string">
+              <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
+            </xs:extension>
+          </xs:simpleContent>
+        </xs:complexType>
+      </xs:element>
       <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
     </xs:sequence>
   </xs:complexType>
@@ -1694,10 +1985,11 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="identifier" type="ccmm:identifier" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#hasIdentifier">
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="identifier" type="ccmm:identifier" sawsdl:modelReference="http://www.w3.org/ns/adms#identifier">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            has identifier - has identifier
+            has identifier - Identifier of an Agent.
+            The recommended identifier scheme for an organization is https://ror.org; the recommended identifier scheme for a person is https://orcid.org. Provide other identifiers if available.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1705,7 +1997,7 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             name - Name of the agent.
-            It is used for the official name of the agent. For Persons it is combination of first and family names. Recommended format is "family names, first names".
+            The official name of an agent. For Person, it is a combination of the first and family names. The recommended format is "family name(s), first name(s)", e.g., "Smith, John".
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1765,39 +2057,11 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="person" type="ccmm:person"/>
-  <xs:complexType name="resource_agent_role_type" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#Concept">
-    <xs:annotation>
-      <xs:documentation xml:lang="en">
-        Resource agent role type - Role of the agent in the relationship to the resource. 
-        Use value from code list https://vocabs.ccmm.cz/registry/codelist/AgentRole/.
-      </xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
-        <xs:annotation>
-          <xs:documentation xml:lang="en">
-            label - Resource agent role type label.
-            Use label of the corresponding value from code list https://vocabs.ccmm.cz/registry/codelist/AgentRole/.
-          </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-          <xs:simpleContent>
-            <xs:extension base="xs:string">
-              <xs:attribute ref="xml:lang" use="required"/>
-            </xs:extension>
-          </xs:simpleContent>
-        </xs:complexType>
-      </xs:element>
-      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="resource_agent_role_type" type="ccmm:resource_agent_role_type"/>
   <xs:complexType name="checksum" sawsdl:modelReference="http://spdx.org/rdf/terms#Checksum">
     <xs:annotation>
       <xs:documentation xml:lang="en">
         Checksum - A value that allows the contents of a file to be authenticated.
-        This class allows the results of a variety of checksum and cryptographic message digest algorithms to be represented.
+        This class allows the results of a variety of checksum and cryptographic message digest algorithms to be represented. It is related to the download URL.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
@@ -1814,7 +2078,6 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             uses algorithm - The algorithm used to produce the subject Checksum.
-            Version 2.2 of [SPDX] defines individuals for the following algorithms: MD2, MD4, MD5, MD6, SHA-1, SHA-224, SHA-256, SHA-384, SHA-512.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1822,11 +2085,23 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="checksum" type="ccmm:checksum"/>
+  <xs:complexType name="common_provenance_model_json_representation" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#CPMJsonRepresentation">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Common provenance model JSON representation - Provides link to  the representation of provenance activity information in JSON format according to the Common provenance model specified in  ISO 23494-2 standard.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
+      <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="common_provenance_model_json_representation" type="ccmm:common_provenance_model_json_representation"/>
   <xs:complexType name="address" sawsdl:modelReference="http://www.w3.org/ns/locn#Address">
     <xs:annotation>
       <xs:documentation xml:lang="en">
         Address - A spatial object that in a human-readable way identifies a fixed location. 
-        Address shall refer to the IRI identifier of an address from existing Address registry (e.g. RÚIAN for Czechia). In cases, where address identifier does not exist or cannot be used, fill address details using class attributes.
+        Address shall refer to the IRI identifier of an address from existing Address registry (e.g., RÚIAN for Czechia). In cases, where address identifier does not exist or cannot be used, fill address details using class attributes.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
@@ -1841,6 +2116,7 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -1890,7 +2166,7 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             address area - The name of a geographic area that groups Addresses.
-             This would typically be part of a city, a neighbourhood or village, e.g. Montmartre. Address area is not an administrative unit. 
+             This would typically be part of a city, a neighbourhood or village, e.g., Montmartre. Address area is not an administrative unit. 
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -1934,21 +2210,23 @@
     <xs:annotation>
       <xs:documentation xml:lang="en">
         Resource type - Type of the resource.
-        Use IRI identifier of the resource type from the codelist https://vocabularies.coar-repositories.org/resource_types/.
+        Use IRI identifier of the resource type from the register https://vocabularies.coar-repositories.org/resource_types/.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element name="iri" type="xs:anyURI"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
+      <xs:element maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#prefLabel">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             label - Label of the resource type.
+            Use a label of the corresponding value from the register https://vocabularies.coar-repositories.org/resource_types/. This property may be repeated for parallel language versions of the label.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -1969,17 +2247,26 @@
       <xs:element minOccurs="0" maxOccurs="unbounded" name="label" sawsdl:modelReference="http://www.w3.org/2000/01/rdf-schema#label">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            label - Identifier scheme label
-            E.g. DOI, ORCID etc...
+            label - Identifier scheme label.
+            For example, Digital Object Identifier, Open Research and Contributor ID etc. Shorts like DOI or ORCID belongs to the notation.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="notation" type="xs:string" sawsdl:modelReference="http://www.w3.org/2004/02/skos/core#notation">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            notation - Notation of the identifier scheme.
+            Fill in the short notations of the identifier scheme, e.g. ROR, ORCID, DOI etc.
+          </xs:documentation>
+        </xs:annotation>
       </xs:element>
       <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax" namespace="##other"/>
     </xs:sequence>
@@ -2004,6 +2291,7 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
@@ -2012,34 +2300,36 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="subject_scheme" type="ccmm:subject_scheme"/>
-  <xs:complexType name="description" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#Description">
+  <xs:complexType name="description" sawsdl:modelReference="https://w3id.org/tib/datacite/class/Description">
     <xs:annotation>
       <xs:documentation xml:lang="en">
-        Description - All additional information that does not fit in any of the other categories. May be used for technical information or detailed information associated with a scientific instrument.
-        Description of the resource may have also a description type.
+        Description - All additional information to the resource. 
+        May be used for technical information or detailed information associated with a scientific instrument. Description of the resource may have also a description type. At least one description with a free-text account of the Dataset is mandatory.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="iri" type="xs:anyURI"/>
-      <xs:element name="description_text" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#descriptionText">
+      <xs:element name="description_text" sawsdl:modelReference="http://purl.org/dc/terms/description">
         <xs:annotation>
           <xs:documentation xml:lang="en">
-            description text - Text describing the resource.
+            description text - A free-text account of the Data Service.
+             This property can be repeated for parallel language versions of the description.
           </xs:documentation>
         </xs:annotation>
         <xs:complexType>
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
       </xs:element>
-      <xs:element minOccurs="0" name="description_type" type="ccmm:description_type" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/datacite#hasDescriptionType">
+      <xs:element minOccurs="0" name="description_type" type="ccmm:description_type" sawsdl:modelReference="https://w3id.org/tib/datacite/property/descriptionType">
         <xs:annotation>
           <xs:documentation xml:lang="en">
             has description type - Relation to the type of the description.
-            Type of the description from the codelist https://vocabs.ccmm.cz/registry/codelist/DescriptionType/.
+            Type of the description from the code list https://w3id.org/tib/datacite/vocab/descriptionType.
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -2047,10 +2337,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="description" type="ccmm:description"/>
-  <xs:complexType name="contact_details" sawsdl:modelReference="https://model.ccmm.cz/vocabulary/ccmm#ContactDetails">
+  <xs:complexType name="contact_details" sawsdl:modelReference="http://www.w3.org/2006/vcard/ns#Kind">
     <xs:annotation>
       <xs:documentation xml:lang="en">
-        Contact details - Details to contact the agent in a relationship to the resource.
+        Contact details - Contact details such as telephone, e-mail address etc.
         Describes contact details, such as telephone, e--mail address etc.
       </xs:documentation>
     </xs:annotation>
@@ -2067,7 +2357,7 @@
         <xs:annotation>
           <xs:documentation xml:lang="en">
             email - Email address.
-            Email address in standard format, e.g. john.doe@domain.com
+            Email address in standard format, e.g., john.doe@domain.com
           </xs:documentation>
         </xs:annotation>
       </xs:element>
@@ -2094,7 +2384,7 @@
   <xs:complexType name="application_profile" sawsdl:modelReference="http://purl.org/dc/terms/Standard">
     <xs:annotation>
       <xs:documentation xml:lang="en">
-        Application profile - A standard or other specification to which a metadata record conforms.
+        Application profile - A standard or other specification to which a resource conforms.
       </xs:documentation>
     </xs:annotation>
     <xs:sequence>
@@ -2109,6 +2399,7 @@
           <xs:simpleContent>
             <xs:extension base="xs:string">
               <xs:attribute ref="xml:lang" use="required"/>
+              <xs:assert test="@xml:lang != ''"/>
             </xs:extension>
           </xs:simpleContent>
         </xs:complexType>
